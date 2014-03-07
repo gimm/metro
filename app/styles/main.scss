@@ -1,0 +1,74 @@
+//reset and normalization
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, Sans-Serif;
+}
+
+//global
+body {
+  box-sizing: border-box;
+  color: #ffffff;
+  background-color: #00394d;
+}
+
+.nav {
+  list-style: none;
+  padding: 10px;
+  background-color: tomato;
+}
+
+.nav li {
+  display: inline-block;
+  padding: 0 10px;
+}
+
+$tile-size: 150px;
+$tile-padding: 5px;
+$group-size: $tile-size*3;
+.group {
+  min-width: $group-size;
+  display: inline-block;
+  margin: $tile-padding*3;
+  h3{
+    margin-left: $tile-padding;
+  }
+  .group-content{
+    height: $group-size;
+    position: relative;
+  }
+}
+
+.tile {
+  height: $tile-size;
+  padding: $tile-padding;
+
+
+//  display: inline-block;
+  line-height: $tile-size - $tile-padding*2;
+  text-align: center;
+  font-weight: bold;
+  position: absolute;
+  .placeholder{
+    width: 100%;
+    background-color: rgba(200, 200, 200, 0.2);
+  }
+  .content{
+    background-color: #2e8bcc;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+}
+
+.size-1{
+  width: $tile-size;
+}
+.size-2{
+  width: $tile-size*2;
+}
+.size-3{
+  width: $tile-size*3;
+}
+.size-4{
+  width: $tile-size*4;
+}

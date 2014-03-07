@@ -1,12 +1,18 @@
 'use strict';
 
 angular.module('metroApp')
-  .directive('tile', function () {
-    return {
-      template: '<div></div>',
-      restrict: 'E',
-      link: function postLink(scope, element, attrs) {
-        element.text('this is the tile directive');
-      }
-    };
-  });
+    .directive('tile', function () {
+        return {
+            priority: -1,
+            transclude: true,
+            replace: true,
+            templateUrl: "templates/tile.html",
+            restrict: 'E',
+            require: "^group",
+            scope: {
+                tConfig: "="
+            },
+            link: function postLink(scope, element, attrs) {
+            }
+        };
+    });

@@ -212,7 +212,7 @@ AddDefaultCharset utf-8
     Options +FollowSymlinks
   # Options +SymLinksIfOwnerMatch
     RewriteEngine On
-  # RewriteBase /
+    RewriteBase /
 </IfModule>
 
 # ------------------------------------------------------------------------------
@@ -305,6 +305,15 @@ AddDefaultCharset utf-8
     RewriteCond %{SCRIPT_FILENAME} -d [OR]
     RewriteCond %{SCRIPT_FILENAME} -f
     RewriteRule "(^|/)\." - [F]
+</IfModule>
+
+# changed by gimm
+# rewrite rule to handle angular html5 mode route
+<IfModule mod_rewrite.c>
+    RewriteCond     %{REQUEST_URI} !^(/index\.php|/img|/js|/css|/robots\.txt|/favicon\.ico)
+    RewriteCond     %{REQUEST_FILENAME} !-f
+    RewriteCond     %{REQUEST_FILENAME} !-d
+    RewriteRule     . /index.html [L]
 </IfModule>
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
