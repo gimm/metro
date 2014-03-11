@@ -1,37 +1,57 @@
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, Sans-Serif; }
+  box-sizing: border-box; }
+
+html, body {
+  height: 100%; }
+  @media (min-width: 1400px) {
+    html, body {
+      font-size: 24px; } }
+  @media (max-width: 1400px) {
+    html, body {
+      font-size: 18px; } }
+  @media (max-width: 900px) {
+    html, body {
+      font-size: 12px; } }
 
 body {
-  box-sizing: border-box;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, Sans-Serif;
   color: #ffffff;
   background-color: #00394d; }
-
-.nav {
-  list-style: none;
-  padding: 10px;
-  background-color: tomato; }
-
-.nav li {
-  display: inline-block;
-  padding: 0 10px; }
-
-.group {
-  min-width: 450px;
-  display: inline-block;
-  margin: 15px; }
-  .group h3 {
-    margin-left: 5px; }
-  .group .group-content {
-    height: 450px;
-    position: relative; }
+  body header {
+    background-color: tomato;
+    height: 3em; }
+    body header nav ul {
+      list-style: none;
+      padding: 10px; }
+      body header nav ul li {
+        display: inline-block;
+        padding: 0 10px; }
+  body main {
+    min-height: 18em;
+    height: calc(100% - 6em);
+    width: 90%;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden; }
+    body main .panorama {
+      position: absolute;
+      width: 100em;
+      height: 100%;
+      padding-top: 2em; }
+      body main .panorama .group {
+        min-width: 18em;
+        display: inline-block; }
+        body main .panorama .group .group-content {
+          height: 18em;
+          position: relative; }
+  body footer {
+    height: 3em;
+    background-color: black; }
 
 .tile {
-  height: 150px;
-  padding: 5px;
-  line-height: 140px;
+  height: 6em;
+  padding: 0.2em;
+  line-height: 5.6em;
   text-align: center;
   font-weight: bold;
   position: absolute; }
@@ -40,16 +60,18 @@ body {
     background-color: rgba(200, 200, 200, 0.2); }
   .tile .content {
     background-color: #2e8bcc;
-    border: 1px solid rgba(255, 255, 255, 0.3); }
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    white-space: nowrap;
+    overflow: hidden; }
 
 .size-1 {
-  width: 150px; }
+  width: 6em; }
 
 .size-2 {
-  width: 300px; }
+  width: 12em; }
 
 .size-3 {
-  width: 450px; }
+  width: 18em; }
 
 .size-4 {
-  width: 600px; }
+  width: 24em; }

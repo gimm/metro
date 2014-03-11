@@ -3,7 +3,6 @@
 angular.module('metroApp')
     .directive('tile', function () {
         return {
-            priority: -1,
             transclude: true,
             replace: true,
             templateUrl: "templates/tile.html",
@@ -12,7 +11,7 @@ angular.module('metroApp')
             scope: {
                 tConfig: "="
             },
-            link: function postLink(scope, element, attrs) {
+            link: function (scope, element, attrs) {
             }
         };
     });

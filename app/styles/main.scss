@@ -1,44 +1,80 @@
 //reset and normalization
 * {
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, Sans-Serif;
+}
+
+//variables
+$tile-size: 6em;
+$tile-padding: 0.2em;
+$group-size: $tile-size*3;
+
+@mixin breakpoint($point) {
+  @if $point == papa-bear {
+    @media (min-width: 1400px) { @content; }
+  }
+  @else if $point == mama-bear {
+    @media (max-width: 1400px) { @content; }
+  }
+  @else if $point == baby-bear {
+    @media (max-width: 900px)  { @content; }
+  }
 }
 
 //global
+html, body{
+  height: 100%;
+  @include breakpoint(papa-bear) { font-size: 24px }
+  @include breakpoint(mama-bear) { font-size: 18px; }
+  @include breakpoint(baby-bear) { font-size: 12px; }
+}
 body {
-  box-sizing: border-box;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, Sans-Serif;
   color: #ffffff;
   background-color: #00394d;
-}
-
-.nav {
-  list-style: none;
-  padding: 10px;
-  background-color: tomato;
-}
-
-.nav li {
-  display: inline-block;
-  padding: 0 10px;
-}
-
-$tile-size: 150px;
-$tile-padding: 5px;
-$group-size: $tile-size*3;
-.group {
-  min-width: $group-size;
-  display: inline-block;
-  margin: $tile-padding*3;
-  h3{
-    margin-left: $tile-padding;
+  header{
+    background-color: tomato;
+    height: 3em;
+    nav ul{
+      list-style: none;
+      padding: 10px;
+      li {
+        display: inline-block;
+        padding: 0 10px;
+      }
+    }
   }
-  .group-content{
-    height: $group-size;
+  main{
+    min-height: 18em;
+    height: calc(100% - 6em);
+    width: 90%;
+    margin: 0 auto;
     position: relative;
+    overflow: hidden;
+    .panorama{
+      position: absolute;
+      width: 100em;
+      height: 100%;
+      padding-top: 2em;
+      .group{
+        min-width: $group-size;
+        display: inline-block;
+        h3{
+
+        }
+        .group-content{
+          height: $group-size;
+          position: relative;
+        }
+      }
+    }
+  }
+  footer{
+    height: 3em;
+    background-color: black;
   }
 }
+
+
 
 .tile {
   height: $tile-size;
@@ -57,6 +93,8 @@ $group-size: $tile-size*3;
   .content{
     background-color: #2e8bcc;
     border: 1px solid rgba(255, 255, 255, 0.3);
+    white-space: nowrap;
+    overflow: hidden;
   }
 }
 

@@ -1,14 +1,14 @@
 angular.module("metroApp").directive("group", function () {
     return {
-        restrict: "E",
+        restrict: "A",
         transclude: true,
         replace: true,
         scope:{
-            gConfig: "="
+            group: "="
         },
         templateUrl: "templates/group.html",
         link: function(scope, element, attrs) {
-            var tiles = scope.gConfig.tiles;
+            var tiles = scope.group.tiles;
 
             var layout = {};
 
@@ -46,7 +46,6 @@ angular.module("metroApp").directive("group", function () {
             })
 
             scope.layout = tilesAndPlaceholders;
-            console.log(layout);
 
         },
         controller: function ($scope, $element, $attrs, $transclude) {
