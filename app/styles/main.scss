@@ -22,6 +22,7 @@ $group-size: $tile-size*3;
 
 //global
 html, body{
+  background-color: black;
   height: 100%;
   @include breakpoint(papa-bear) { font-size: 24px }
   @include breakpoint(mama-bear) { font-size: 18px; }
@@ -43,6 +44,7 @@ body {
       }
     }
   }
+
   main{
     @include breakpoint(papa-bear) {
       min-height: 18em;
