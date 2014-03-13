@@ -6,13 +6,19 @@ angular.module('metroApp')
             restrict: 'A',
 
             link: function (scope, element, attrs) {
+                var delta = 100;
                 $document.on("wheel", function (e) {
-                    scroll(element[0], e.deltaY);
-                    console.log("scroll1", e.deltaX, e.deltaY, e.wheelDelta, e.detail);
+                    var direction = e.deltaY > 0 ? 1 : -1;
+                    scroll(element[0], delta*direction);
                 });
                 $document.on("keydown", function (e) {
-                    scroll(element[0], e.deltaY);
-                    console.log("keydown1", e);
+                    var direction = 0;
+                    if(e.keyCode==37 || e.keyCode==38){
+                        direction = -1;
+                    }else if(e.keyCode==39 || e.keyCode==40){
+                        direction = 1;
+                    }
+                    direction && scroll(element[0], delta*direction);
                 });
 
             }
