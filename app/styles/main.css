@@ -27,12 +27,23 @@ body {
         display: inline-block;
         padding: 0 10px; }
   body main {
-    min-height: 18em;
-    height: calc(100% - 6em);
-    width: 90%;
     margin: 0 auto;
     position: relative;
-    overflow: hidden; }
+    overflow-x: hidden; }
+    @media (min-width: 1400px) {
+      body main {
+        min-height: 18em;
+        height: calc(100% - 6em);
+        width: 90%; } }
+    @media (max-width: 1400px) {
+      body main {
+        min-height: 18em;
+        height: calc(100% - 6em);
+        width: 90%; } }
+    @media (max-width: 900px) {
+      body main {
+        min-height: calc(100% - 6em);
+        width: 100%; } }
     body main .panorama {
       position: absolute;
       width: 100em;
@@ -41,6 +52,9 @@ body {
       body main .panorama .group {
         min-width: 18em;
         display: inline-block; }
+        @media (max-width: 900px) {
+          body main .panorama .group {
+            display: block; } }
         body main .panorama .group .group-content {
           height: 18em;
           position: relative; }

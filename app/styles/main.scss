@@ -44,12 +44,24 @@ body {
     }
   }
   main{
-    min-height: 18em;
-    height: calc(100% - 6em);
-    width: 90%;
+    @include breakpoint(papa-bear) {
+      min-height: 18em;
+      height: calc(100% - 6em);
+      width: 90%;
+    }
+    @include breakpoint(mama-bear) {
+      min-height: 18em;
+      height: calc(100% - 6em);
+      width: 90%;
+    }
+    @include breakpoint(baby-bear) {
+      min-height: calc(100% - 6em);
+      width: 100%;
+    }
+
     margin: 0 auto;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
     .panorama{
       position: absolute;
       width: 100em;
@@ -57,6 +69,9 @@ body {
       padding-top: 2em;
       .group{
         min-width: $group-size;
+        @include breakpoint(baby-bear) {
+          display: block;
+        }
         display: inline-block;
         h3{
 
