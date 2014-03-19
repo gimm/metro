@@ -8,7 +8,12 @@ angular.module('metroApp', [
         $routeProvider
             .when('/', {
                 templateUrl: 'views/main.html',
-                controller: 'MainCtrl'
+                controller: 'MainCtrl',
+                resolve: {
+                    loadTiles: ['$q', '$timeout', 'grid', function ($q, $timeout, grid) {
+                        return grid.load();
+                    }]
+                }
             })
             .when('/about', {
                 templateUrl: 'views/about.html',
@@ -17,98 +22,115 @@ angular.module('metroApp', [
             .otherwise({
                 template: "view does not exist for this url!"
             });
-    }).value("apps", [
+    }).value('data', {
+        'groups': [
             {
-                "title": "Featured",
-                "tiles": [
-                    {
-                        id: "1",
-                        name: "Sine News",
-                        cords: [0, 2],
-                        size: 2
-                    },
-                    {
-                        id: "2",
-                        name: "Yahoo Weather",
-                        cords: [2, 1]
-                    },
-                    {
-                        id: "3",
-                        name: "App Store",
-                        cords: [0, 0]
-                    },
-                    {
-                        id: "4",
-                        name: "Dropbox",
-                        cords: [1, 0],
-                        size: 2
-                    },
-                    {
-                        id: "51",
-                        name: "Codepen",
-                        cords: [1, 3]
-                    }
-                ]},
-            {
-                "title": "Newly Add",
-                "tiles": [
-                    {
-                        id: "11",
-                        name: "Nokia Camera",
-                        cords: [0, 0],
-                        size: 2
-                    },
-                    {
-                        id: "21",
-                        name: "Google Search",
-                        cords: [0, 2]
-                    },
-                    {
-                        id: "31",
-                        name: "QQ",
-                        cords: [1, 1]
-                    },
-                    {
-                        id: "41",
-                        name: "Evernote",
-                        cords: [1, 2]
-                    },
-                    {
-                        id: "61",
-                        name: "Koding",
-                        cords: [2, 2]
-                    }
-                ]
+                'id': 1,
+                'title': "Featured"
             },
-        {
-            "title": "Other",
-            "tiles": [
-                {
-                    id: "11",
-                    name: "Nokia Camera",
-                    cords: [0, 0],
-                    size: 2
-                },
-                {
-                    id: "21",
-                    name: "Google Search",
-                    cords: [0, 3]
-                },
-                {
-                    id: "31",
-                    name: "QQ",
-                    cords: [1, 1]
-                },
-                {
-                    id: "41",
-                    name: "Evernote",
-                    cords: [1, 2]
-                },
-                {
-                    id: "61",
-                    name: "Koding",
-                    cords: [2, 3]
-                }
-            ]
-        }
-        ]);
+            {
+                'id': 2,
+                'title': "New"
+            },
+            {
+                'id': 3,
+                'title': "Other"
+            }
+        ],
+        'tiles': [
+            {
+                id: "1",
+                name: "Sine News",
+                coords: {x: 2, y: 0},
+                size: 2,
+                group: 1
+            },
+            {
+                id: "2",
+                name: "Yahoo Weather",
+                coords: {x: 1, y: 2},
+                group: 1
+            },
+            {
+                id: "3",
+                name: "App Store",
+                coords: {x: 0, y: 0},
+                group: 1
+            },
+            {
+                id: "4",
+                name: "Dropbox",
+                coords: {x: 0, y: 1},
+                size: 2,
+                group: 1
+            },
+            {
+                id: "5",
+                name: "Codepen",
+                coords: {x: 3, y: 1},
+                group: 1
+            },
+            {
+                id: "11",
+                name: "Nokia Camera",
+                coords: {x: 0, y: 0},
+                size: 2,
+                group: 2
+            },
+            {
+                id: "21",
+                name: "Google Search",
+                coords: {x: 2, y: 0},
+                group: 2
+            },
+            {
+                id: "31",
+                name: "QQ",
+                coords: {x: 1, y: 1},
+                group: 2
+            },
+            {
+                id: "41",
+                name: "Evernote",
+                coords: {x: 2, y: 1},
+                group: 2
+            },
+            {
+                id: "51",
+                name: "Koding",
+                coords: {x: 2, y: 2},
+                group: 2
+            },
+            {
+                id: "111",
+                name: "Nokia Camera",
+                coords: {x: 0, y: 0},
+                size: 2,
+                group: 3
+            },
+            {
+                id: "211",
+                name: "Google Search",
+                coords: {x: 3, y: 0},
+                group: 3
+            },
+            {
+                id: "311",
+                name: "QQ",
+                coords: {x: 1, y: 1},
+                group: 3
+            },
+            {
+                id: "411",
+                name: "Evernote",
+                coords: {x: 2, y: 1},
+                group: 3
+            },
+            {
+                id: "511",
+                name: "Koding",
+                coords: {x: 3, y: 2},
+                group: 3
+            }
+        ]
+    });

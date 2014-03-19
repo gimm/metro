@@ -1,3 +1,44 @@
+@media (max-width: 900px) {
+  body .r0 {
+    left: 0; }
+  body .r1 {
+    left: 6em; }
+  body .r2 {
+    left: 12em; }
+  body .r3 {
+    left: 18em; }
+  body .r4 {
+    left: 24em; }
+  body .c0 {
+    top: 0; }
+  body .c1 {
+    top: 6em; }
+  body .c2 {
+    top: 12em; }
+  body .c3 {
+    top: 18em; }
+  body .c4 {
+    top: 24em; }
+  body main {
+    min-height: calc(100% - 6em);
+    height: auto;
+    width: 100%;
+    overflow-y: hidden; }
+    body main .panorama {
+      width: 100%;
+      position: relative; }
+      body main .panorama .group {
+        display: block; }
+      body main .panorama .size-3 {
+        width: 18em;
+        height: 20em; }
+      body main .panorama .size-4 {
+        width: 18em;
+        height: 26em; } }
+
+.r0 {
+  top: 0; }
+
 .r1 {
   top: 6em; }
 
@@ -9,6 +50,9 @@
 
 .r4 {
   top: 24em; }
+
+.c0 {
+  left: 0; }
 
 .c1 {
   left: 6em; }

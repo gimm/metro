@@ -24,6 +24,7 @@ angular.module('metroApp')
             }
         };
         function scroll(element, delta) {
+            console.log("scroll", delta);
             element.scrollLeft += delta;
         }
     });

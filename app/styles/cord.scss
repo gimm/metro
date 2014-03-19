@@ -1,5 +1,43 @@
-$tile-size: 6em;
+@import "_base";
+
+body{
+  @include breakpoint(phone) {
+
+    .r0{
+      left: 0;
+    }
+    .r1{
+      left: $tile-size;
+    }
+    .r2{
+      left: $tile-size*2;
+    }
+    .r3{
+      left: $tile-size*3;
+    }
+    .r4{
+      left: $tile-size*4;
+    }
+
+    .c0{
+      top: 0;
+    }
+    .c1{
+      top: $tile-size;
+    }
+    .c2{
+      top: $tile-size*2;
+    }
+    .c3{
+      top: $tile-size*3;
+    }
+    .c4{
+      top: $tile-size*4;
+    }
+  }
+}
 .r0{
+  top: 0;
 }
 .r1{
   top: $tile-size;
@@ -15,6 +53,7 @@ $tile-size: 6em;
 }
 
 .c0{
+  left: 0;
 }
 .c1{
   left: $tile-size;

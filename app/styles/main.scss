@@ -1,32 +1,17 @@
+@import "_base";
 //reset and normalization
 * {
   box-sizing: border-box;
 }
 
-//variables
-$tile-size: 6em;
-$tile-padding: 0.2em;
-$group-size: $tile-size*3;
 
-@mixin breakpoint($point) {
-  @if $point == papa-bear {
-    @media (min-width: 1400px) { @content; }
-  }
-  @else if $point == mama-bear {
-    @media (max-width: 1400px) { @content; }
-  }
-  @else if $point == baby-bear {
-    @media (max-width: 900px)  { @content; }
-  }
-}
 
 //global
 html, body{
-  background-color: black;
   height: 100%;
-  @include breakpoint(papa-bear) { font-size: 24px }
-  @include breakpoint(mama-bear) { font-size: 18px; }
-  @include breakpoint(baby-bear) { font-size: 12px; }
+  @include breakpoint(desktop) { font-size: 24px }
+  @include breakpoint(tablet) { font-size: 18px; }
+  @include breakpoint(phone) { font-size: 12px; }
 }
 body {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, Sans-Serif;
@@ -46,37 +31,17 @@ body {
   }
 
   main{
-    @include breakpoint(papa-bear) {
-      min-height: 18em;
-      height: calc(100% - 6em);
-      width: 90%;
-    }
-    @include breakpoint(mama-bear) {
-      min-height: 18em;
-      height: calc(100% - 6em);
-      width: 90%;
-    }
-    @include breakpoint(baby-bear) {
-      min-height: calc(100% - 6em);
-      width: 100%;
-    }
-
     margin: 0 auto;
     position: relative;
-    overflow-x: hidden;
+
     .panorama{
-      position: absolute;
-      width: 100em;
       height: 100%;
       padding-top: 2em;
       .group{
         min-width: $group-size;
-        @include breakpoint(baby-bear) {
-          display: block;
-        }
-        display: inline-block;
+        margin: 0 auto;
         h3{
-
+          height: 2em;
         }
         .group-content{
           height: $group-size;
@@ -96,9 +61,8 @@ body {
 .tile {
   height: $tile-size;
   padding: $tile-padding;
-
-
-//  display: inline-block;
+  transition: all .5s ease-in-out;
+  display: inline-block;
   line-height: $tile-size - $tile-padding*2;
   text-align: center;
   font-weight: bold;
@@ -114,7 +78,6 @@ body {
     overflow: hidden;
   }
 }
-
 .size-1{
   width: $tile-size;
 }
@@ -126,4 +89,13 @@ body {
 }
 .size-4{
   width: $tile-size*4;
+}
+
+
+//drag and drop
+.drag{
+  opacity: 0.8;
+}
+.over{
+  background-color: green;
 }

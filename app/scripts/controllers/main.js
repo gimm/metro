@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('metroApp')
-    .controller('MainCtrl', function ($scope, apps) {
-        $scope.groups = apps;
+    .controller('MainCtrl', function ($scope, grid) {
+        $scope.groups = grid.groups;
     });
