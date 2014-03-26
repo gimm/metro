@@ -35,18 +35,36 @@ body {
     position: relative;
 
     .panorama{
+      display: flex;
       height: 100%;
       padding-top: 2em;
       .group{
-        min-width: $group-size;
-        margin: 0 auto;
+        transition: all .5s ease-in-out;
+        min-width: $tile-width;
         h3{
           height: 2em;
         }
         .group-content{
-          height: $group-size;
+          height: $tile-width*3;
           position: relative;
+          display: inline-flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+          align-content: flex-start;
         }
+      }
+      .group-splitter{
+        width: 1em;
+        height: $tile-width*3;
+        margin-top: 2em;
+      }
+    }
+    .dragging{
+      .group-splitter{
+        background-color: rgba(231, 221, 221, .3);
+      }
+      .tile{
+        padding: 0.5em;
       }
     }
   }
@@ -57,40 +75,41 @@ body {
 }
 
 
-
 .tile {
-  height: $tile-size;
-  padding: $tile-padding;
   transition: all .5s ease-in-out;
-  display: inline-block;
-  line-height: $tile-size - $tile-padding*2;
+  flex: 1;
+  position: absolute;
   text-align: center;
   font-weight: bold;
-  position: absolute;
-  .placeholder{
-    width: 100%;
-    background-color: rgba(200, 200, 200, 0.2);
-  }
+  height: $tile-width;
+  padding: 0.2em;
   .content{
+    height: 100%;
     background-color: #2e8bcc;
     border: 1px solid rgba(255, 255, 255, 0.3);
     white-space: nowrap;
     overflow: hidden;
   }
 }
-.size-1{
-  width: $tile-size;
-}
-.size-2{
-  width: $tile-size*2;
-}
-.size-3{
-  width: $tile-size*3;
-}
-.size-4{
-  width: $tile-size*4;
-}
 
+.s1{
+  width: $tile-width;
+}
+.s2{
+  width: $tile-width*2;
+}
+.s3{
+  width: $tile-width*3;
+}
+.s4{
+  width: $tile-width*4;
+}
+.s5{
+  width: $tile-width*5;
+}
+.s6{
+  width: $tile-width*6;
+}
 
 //drag and drop
 .drag{

@@ -1,4 +1,4 @@
-<div class="panorama" ng-click="addGroup()">
-    <section group="group" ng-repeat="group in groups"></section>
-    <section class="group size-1">*</section>
+<div class="{{modedrag?'dragging panorama':'panorama'}}">
+    <section group ng-repeat-start="group in groups"></section>
+    <section ng-repeat-end class="group-splitter"></section>
 </div>

@@ -6,59 +6,57 @@ angular.module("metroApp").service("reorder", function ($document, grid) {
         this.group = scope;
     }
     this.enter = function (entered) {
-        if(this.dragged != entered){
+        if (this.dragged != entered) {
             //change dragged cords, reorder tiles and group(s)
             var d = grid.byId(this.dragged);
-            if(entered.indexOf('placeholder')===0){//placeholder
-                if(d.size !== 2){
-                    angular.forEach(this.group.layout, function (tile, index) {
-                        if(tile.id == entered){
-                            this.group.layout.splice(index, 1);
-                            console.log('remove tile', tile);
-
-                        }
-                    }, this);
-                    var newCoords = this.getCoordsById(entered);
-                    d.coords = newCoords;
-                    this.group.$apply();
-                }else{
-
-                }
-
-            }else{//tile
+            var e = grid.byId(entered);
+            var old = e.order;
+            var step = 1;
+            if(d.size===1){
 
             }
+            console.log('order', d.order, e.order);
+            var direction;
+            var start;
+            var end;
+            if(e.order > d.order){
+                direction = 'backward'
+                start = d.order;
+                end = e.order;
+            }else if(e.order < d.order){
+                direction = 'forward'
+                start = e.order;
+                end = d.order;
+            }else{
+                start = end = e.order;
+            }
+            console.log(start, end);
+            angular.forEach(this.group.items, function (tiles, order) {
+                if (order >= start && order <=end) {
+                    angular.forEach(tiles, function (tile, index) {
+                        if(direction === 'backward'){
+                            tile.order -= 1;
+                        }else{
+                            tile.order += 1;
+                        }
+                    });
+                }
+            }, this);
+            d.order = old;
+            var newLayout = grid.render(this.group.group.id);
+            this.group.items = newLayout.items;
+            this.group.size = newLayout.size;
+            this.group.$apply();
+
+
             //var e = grid.byId(entered);
 
 
-
-
-        }else{//enter itself, drag just started
+        } else {//enter itself, drag just started
 
         }
     };
     this.leave = function (leaved) {
-        if(leaved == this.dragged){
-            var draggedTile = grid.byId(this.dragged);
-            console.log('add tile', draggedTile.coords);
-            this.group.layout.push({
-                'id': ['placeholder', this.group.id, draggedTile.coords.x, draggedTile.coords.y].join('-'),
-                'coords': {'x': draggedTile.coords.x, 'y': draggedTile.coords.y}
-            });
-            this.group.$apply();
-        }else{
 
-        }
-    };
-    this.getCoordsById = function (appId) {
-        var coords = {};
-        if(appId.indexOf('placeholder')===0){
-            var parts = appId.split('-');
-            coords.x = parts[2];
-            coords.y = parts[3];
-        }else{
-            coords = grid.byId(appId).coords;
-        }
-        return coords;
     };
 });

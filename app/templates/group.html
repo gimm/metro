@@ -1,14 +1,8 @@
-<section data-group-id="{{group.id}}" class='group size-{{size}}'>
+<section data-group-id="{{group.id}}" class='group s{{group.size}}'>
     <h3>{{group.title}}</h3>
-
-    <!--<div class='group-content'>-->
-        <!--<tile class="tile cord-{{tile.cords}} size-{{tile.size || 1}}" t-config="tile" ng-repeat="tile in gConfig.tiles">-->
-            <!--{{tile.name}}-->
-        <!--</tile>-->
-    <!--</div>-->
     <div class='group-content'>
-            <tile class="tile r{{(tile.coords.y)}} c{{(tile.coords.x)}} size-{{tile.size || 1}}" app="tile" ng-repeat="tile in layout">
-                {{tile.name || "*"}}
-            </tile>
+        <tile data-app-id="{{tile.id}}" class="tile {{coords(tile)}}" ng-repeat="tile in group.tiles">
+            {{tile.name}}
+        </tile>
     </div>
 </section>

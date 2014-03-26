@@ -40,96 +40,119 @@ angular.module('metroApp', [
         'tiles': [
             {
                 id: "1",
-                name: "Sine News",
-                coords: {x: 2, y: 0},
+                name: "1",
+                order: 1,
                 size: 2,
                 group: 1
             },
             {
                 id: "2",
-                name: "Yahoo Weather",
-                coords: {x: 1, y: 2},
+                name: "2",
+                order: 2,
+                side: 'left',
+                size: 1,
                 group: 1
             },
             {
                 id: "3",
-                name: "App Store",
-                coords: {x: 0, y: 0},
+                name: "2.5",
+                order: 2,
+                side: 'right',
+                size: 1,
                 group: 1
             },
             {
                 id: "4",
-                name: "Dropbox",
-                coords: {x: 0, y: 1},
+                name: "3",
+                order: 3,
                 size: 2,
                 group: 1
             },
             {
                 id: "5",
-                name: "Codepen",
-                coords: {x: 3, y: 1},
+                name: "4",
+                order: 4,
+                size: 2,
+                group: 1
+            },{
+                id: "6",
+                name: "6",
+                order: 5,
+                size: 1,
                 group: 1
             },
             {
                 id: "11",
                 name: "Nokia Camera",
-                coords: {x: 0, y: 0},
+                order: 1,
                 size: 2,
                 group: 2
             },
             {
                 id: "21",
                 name: "Google Search",
-                coords: {x: 2, y: 0},
+                order: 2,
+                size: 1,
+                side: 'left',
                 group: 2
             },
             {
                 id: "31",
                 name: "QQ",
-                coords: {x: 1, y: 1},
+                order: 2,
+                size: 1,
+                side: 'right',
                 group: 2
             },
             {
                 id: "41",
                 name: "Evernote",
-                coords: {x: 2, y: 1},
+                order: 3,
+                size: 2,
                 group: 2
             },
             {
                 id: "51",
                 name: "Koding",
-                coords: {x: 2, y: 2},
+                order: 3,
+                size: 2,
                 group: 2
             },
             {
                 id: "111",
                 name: "Nokia Camera",
-                coords: {x: 0, y: 0},
+                order: 1,
                 size: 2,
                 group: 3
             },
             {
                 id: "211",
                 name: "Google Search",
-                coords: {x: 3, y: 0},
+                order: 2,
+                size: 1,
+                side: 'left',
                 group: 3
             },
             {
                 id: "311",
                 name: "QQ",
-                coords: {x: 1, y: 1},
+                order: 2,
+                size: 1,
+                side: 'right',
                 group: 3
             },
             {
                 id: "411",
                 name: "Evernote",
-                coords: {x: 2, y: 1},
+                order: 3,
+                size: 2,
                 group: 3
             },
             {
                 id: "511",
                 name: "Koding",
-                coords: {x: 3, y: 2},
+                order: 3,
+                size: 2,
                 group: 3
             }
         ]

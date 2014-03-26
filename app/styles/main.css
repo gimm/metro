@@ -38,6 +38,7 @@ html, body {
         width: 100%;
         overflow-y: hidden; }
         html main .panorama, body main .panorama {
+          flex-direction: column;
           width: 100%;
           position: relative; }
           html main .panorama .group, body main .panorama .group {
@@ -46,7 +47,7 @@ html, body {
             width: 18em;
             height: 20em; }
           html main .panorama .size-4, body main .panorama .size-4 {
-            width: 18em;
+            width: 24em;
             height: 26em; } }
 
 body {
@@ -66,49 +67,65 @@ body {
     margin: 0 auto;
     position: relative; }
     body main .panorama {
+      display: flex;
       height: 100%;
       padding-top: 2em; }
       body main .panorama .group {
-        min-width: 18em;
-        margin: 0 auto; }
+        transition: all .5s ease-in-out;
+        min-width: 6em; }
         body main .panorama .group h3 {
           height: 2em; }
         body main .panorama .group .group-content {
           height: 18em;
-          position: relative; }
+          position: relative;
+          display: inline-flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+          align-content: flex-start; }
+      body main .panorama .group-splitter {
+        width: 1em;
+        height: 18em;
+        margin-top: 2em; }
+    body main .dragging .group-splitter {
+      background-color: rgba(231, 221, 221, 0.3); }
+    body main .dragging .tile {
+      padding: 0.5em; }
   body footer {
     height: 3em;
     background-color: black; }
 
 .tile {
-  height: 6em;
-  padding: 0.2em;
   transition: all .5s ease-in-out;
-  display: inline-block;
-  line-height: 5.6em;
+  flex: 1;
+  position: absolute;
   text-align: center;
   font-weight: bold;
-  position: absolute; }
-  .tile .placeholder {
-    width: 100%;
-    background-color: rgba(200, 200, 200, 0.2); }
+  height: 6em;
+  padding: 0.2em; }
   .tile .content {
+    height: 100%;
     background-color: #2e8bcc;
     border: 1px solid rgba(255, 255, 255, 0.3);
     white-space: nowrap;
     overflow: hidden; }
 
-.size-1 {
+.s1 {
   width: 6em; }
 
-.size-2 {
+.s2 {
   width: 12em; }
 
-.size-3 {
+.s3 {
   width: 18em; }
 
-.size-4 {
+.s4 {
   width: 24em; }
+
+.s5 {
+  width: 30em; }
+
+.s6 {
+  width: 36em; }
 
 .drag {
   opacity: 0.8; }

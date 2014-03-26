@@ -3,9 +3,9 @@ angular.module("metroApp").directive("group", function (grid) {
         restrict: "A",
         transclude: true,
         replace: true,
-        scope:{
-            group: "="
-        },
+//        scope:{
+//            group: "="
+//        },
         templateUrl: "templates/group.html",
         controller: function ($scope, $element, reorder) {
             var root = $element[0];
@@ -28,10 +28,10 @@ angular.module("metroApp").directive("group", function (grid) {
             };
         },
         link: function(scope, element, attrs) {
-            var layout = grid.render(scope.group.id);
-
-            scope.size = layout.size;
-            scope.layout = layout.tiles;
+//            var layout = grid.render(scope.group.id);
+//
+//            scope.size = layout.size;
+//            scope.items = layout.items;
         }
     }
 })
