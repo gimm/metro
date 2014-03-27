@@ -12,7 +12,7 @@ describe('Serivce: grid', function () {
         scope = $rootScope.$new();
     }));
 
-    iit('should add group to ui', inject(function (grid, $document) {
+    it('should add group to ui', inject(function (grid, $document) {
 
     }));
 });

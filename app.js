@@ -1,16 +1,15 @@
 
-/**
- * Module dependencies
- */
-
 var express = require('express'),
-  routes = require('./routes'),
-  api = require('./routes/api'),
-  http = require('http'),
-  path = require('path');
+    routes = require('./backend/routes'),
+    api = require('./backend/routes/api'),
+    http = require('http'),
+    path = require('path');
 
 var app = module.exports = express();
 
+app.use(require('connect-livereload')({
+    port: 35729
+}));
 
 /**
  * Configuration
@@ -23,17 +22,20 @@ app.set('view engine', 'jade');
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(require('connect-livereload')({
+    port: 35729
+}));
+app.use(express.static(path.join(__dirname, 'app')));
 app.use(app.router);
 
 // development only
 if (app.get('env') === 'development') {
-  app.use(express.errorHandler());
+    app.use(express.errorHandler());
 }
 
 // production only
 if (app.get('env') === 'production') {
-  // TODO
+    // TODO
 }
 
 
@@ -49,7 +51,7 @@ app.get('/partials/:name', routes.partials);
 app.get('/api/name', api.name);
 
 // redirect all others to the index (HTML5 history)
-app.get('*', routes.index);
+//app.get('*', routes.index);
 
 
 /**
@@ -57,5 +59,5 @@ app.get('*', routes.index);
  */
 
 http.createServer(app).listen(app.get('port'), function () {
-  console.log('Express server listening on port ' + app.get('port'));
+    console.log('Express server listening on port ' + app.get('port'));
 });

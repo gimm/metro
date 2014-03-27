@@ -7,24 +7,6 @@
 <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
 <html class="no-js"> <!--<![endif]-->
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Windows 8 Metro with AngularJS</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css styles/vendor.css -->
-    <!-- bower:css -->
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css({.tmp,app}) styles/main.scss -->
-    <link rel="stylesheet" href="styles/reset.css"/>
-    <link rel="stylesheet" href="styles/font.css"/>
-    <link rel="stylesheet" href="styles/coord.css"/>
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
-</head>
 <body ng-app="metroApp">
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
@@ -42,24 +24,23 @@
 </header>
 
 <!-- Add your site or application content here -->
-<main ng-view scroll="horizen"></main>
+<main ng-view></main>
 
 <footer>
     <p>footer links: responsive, scroll, drag and drop</p>
 </footer>
 <!--[if lt IE 9]>
 <script src="bower_components/es5-shim/es5-shim.js"></script>
-<script src="bower_components/json3/lib/json3.min.js"></script>
+<script src="bower_components/json3/bower_components/json3.min.js"></script>
 <![endif]-->
 
-<!-- build:js scripts/vendor.js -->
 <!-- bower:js -->
 <script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/json3/lib/json3.min.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
 <!-- endbower -->
-<!-- endbuild -->
 
-<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<!-- build:js({.tmp,app}) scripts/vendor.js -->
 <script src="scripts/app.js"></script>
 <script src="scripts/services/grid.js"></script>
 <script src="scripts/services/reorder.js"></script>
@@ -71,4 +52,20 @@
 <!-- endbuild -->
 
 </body>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>METRO UI</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- build:css styles/vendor.css -->
+    <link rel="stylesheet" href="styles/reset.css"/>
+    <link rel="stylesheet" href="styles/font.css"/>
+    <link rel="stylesheet" href="styles/coord.css"/>
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+</head>
 </html>
