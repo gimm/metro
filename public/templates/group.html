@@ -1,7 +1,7 @@
 <section data-group-id="{{group.id}}" class='group s{{group.size}}'>
     <h3>{{group.title}}</h3>
     <div class='group-content'>
-        <tile data-app-id="{{tile.id}}" class="tile {{coords(tile)}}" ng-repeat="tile in group.tiles">
+        <tile data-app-id="{{tile.id}}" class="tile {{tile.selected?'selected':''}} {{coords(tile)}}" ng-repeat="tile in group.tiles">
             {{tile.name}}
         </tile>
     </div>

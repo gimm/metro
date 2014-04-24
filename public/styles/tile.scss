@@ -1,0 +1,22 @@
+.tile.selected:before {
+  position: absolute;
+  display: block;
+  content: "\e013";
+  font-family: 'Glyphicons Halflings';
+  color: #fff;
+  right: 1.2em;
+  font-size: .6em;
+  font-weight: normal;
+  z-index: 102;
+  top: 1.2em;
+}
+.tile.selected:after {
+  position: absolute;
+  display: block;
+  border-top: 2em solid darken(#2e8bcc, 20%);
+  border-left: 2em solid transparent;
+  right: .5em;
+  content: "";
+  top: .5em;
+  z-index: 101;
+}

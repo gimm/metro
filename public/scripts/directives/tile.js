@@ -11,9 +11,25 @@ angular.module('metroApp')
             link: function (scope, element, attrs, groupCtrl) {
                 element.attr("draggable", true);
 
-                element.bind('dragstart',function (e) {
+                element.bind('click',function (e) {
+                        console.log('tile clicked!');
+//                        this.classList.add('selected');
+                        e.stopPropagation();
+                        scope.operate(this.dataset.appId, 'customize');
+                    }
+                ).bind('contextmenu', function (e) {
+                        if (e.stopPropagation) {
+                            e.stopPropagation();
+                        }
+                        if (e.preventDefault) {
+                            e.preventDefault();
+                        }
+                        scope.operate(this.dataset.appId, 'customize');
+                        return false;
+                    }
+                ).bind('dragstart',function (e) {
                         e.dataTransfer.effectAllowed = 'move';
-                        scope.dragstart(this.dataset.appId);
+                        scope.operate(this.dataset.appId, 'reorder');
                         this.classList.add('drag');
                         return false;
                     }
@@ -36,7 +52,7 @@ angular.module('metroApp')
                     }
                 ).bind('dragleave',function (e) {
                         this.classList.remove('over');
-                        groupCtrl.leave(this.dataset.appId);
+//                        groupCtrl.leave(this.dataset.appId);
                         return false;
                     }
                 ).bind('drop', function (e) {

@@ -1,5 +1,8 @@
 angular.module("metroApp").service("grid", function ($q, $timeout, data) {
     this.MAX_ROW = 3;
+    this.size = {
+        'em': 0
+    };
     this.tiles = [];
     this.groups = [];
 
@@ -8,7 +11,7 @@ angular.module("metroApp").service("grid", function ($q, $timeout, data) {
         var defer = $q.defer();
         $timeout(function() {
             defer.resolve({});
-        }, 3000);
+        }, 1000);
         this.tiles = data.tiles;
         this.groups = data.groups;
         return defer.promise;
@@ -51,10 +54,13 @@ angular.module("metroApp").service("grid", function ($q, $timeout, data) {
 
     //generate layout for group
     this.render = function () {
+        this.size.em = 0;
         angular.forEach(this.groups, function (group) {
             group.tiles = this.byGroup(group.id);
             group.size = this.groupSize(group.id);
+            this.size.em += (group.size*10 +2);
         }, this);
+        console.log(this.size, 'fff');
     };
     this.update = function () {
 

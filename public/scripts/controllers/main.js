@@ -3,9 +3,14 @@
 angular.module('metroApp')
     .controller('MainCtrl', function ($scope, grid) {
         grid.render();
+        $scope.size = grid.size;
         $scope.groups = grid.groups;
-        $scope.modedrag = false;
+        $scope.operation = 'none';
         $scope.dragged;
+
+        $scope.clicked = function () {
+            console.log('clicked!!');
+        };
 
         $scope.coords = function (tile) {
             var r = (tile.order - 1) % grid.MAX_ROW;
@@ -16,12 +21,29 @@ angular.module('metroApp')
 
             return ['s' + tile.size, 'r' + r, 'c' + c].join(' ');
         };
-        console.log($scope);
-        $scope.dragstart = function (appId) {
-            console.log('start', appId, $scope);
-            $scope.modedrag = true;
-            $scope.$apply();
+
+        $scope.operate = function (appId, operation) {
+            console.log('customize', appId);
+            if(operation === 'customize'){
+                if($scope.tile){
+                    delete $scope.tile.selected;
+                }
+                $scope.tile = grid.byId(appId);
+                $scope.tile.selected = true;
+                grid.render();
+            }
+            $scope.$apply($scope.operation = operation);
             $scope.dragged = grid.byId(appId);
+        };
+
+        $scope.resize = function () {
+            if($scope.tile.size === 1){
+                $scope.tile.size = 2;
+            }else{
+                $scope.tile.size = 1;
+            }
+            console.log('resize', $scope.tile);
+//            $scope.$apply();
         };
 
         $scope.enter = function (appId) {
@@ -156,7 +178,6 @@ angular.module('metroApp')
         $scope.drop = function (appId) {
             $scope.enter(appId);
             console.log('drop', appId);
-            $scope.modedrag = false;
-            $scope.$apply();
+            $scope.$apply($scope.operation = 'none');
         }
     });

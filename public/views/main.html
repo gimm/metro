@@ -1,4 +1,19 @@
-<div class="{{modedrag?'dragging panorama':'panorama'}}">
-    <section group ng-repeat-start="group in groups"></section>
-    <section ng-repeat-end class="group-splitter"></section>
+<div class="navbar navbar-raw">
+    <div class="container">
+        <a class="navbar-brand" href="/"><h1>Start</h1></a>
+        <a href="/profile" class="nav navbar-text navbar-right">
+            <img src="../images/avatar_small.png" alt="user avatar"/>
+        </a>
+    </div>
+</div>
+<main class="container" scroll ng-click="clicked()">
+    <div ng-class="{customize:'customizing panorama', reorder:'reordering panorama', 'none': 'panorama'}[operation]" style="width: {{size.em}}em">
+        <section group ng-repeat-start="group in groups"></section>
+        <section ng-repeat-end class="group-splitter visible-lg visible-md"></section>
+    </div>
+</main>
+<div ng-class="{customize:'navbar navbar-default navbar-fixed-bottom', none: 'hidden'}[operation]">
+    <div class="container">
+        <a class="navbar-text" ng-click="resize()">Unpin</a>
+    </div>
 </div>

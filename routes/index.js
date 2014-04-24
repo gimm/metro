@@ -6,7 +6,7 @@ module.exports = function (app) {
     });
 
     require('./main')(app);
-    require('./app')(app);
+    require('./hello')(app);
     require('./user')(app);
 
     app.get('*', function (req, res) {

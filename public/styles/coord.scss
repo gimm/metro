@@ -1,41 +1,4 @@
-@import "_base";
-
-body{
-  @include breakpoint(phone) {
-
-    .r0{
-      left: 0;
-    }
-    .r1{
-      left: $tile-width;
-    }
-    .r2{
-      left: $tile-width*2;
-    }
-    .r3{
-      left: $tile-width*3;
-    }
-    .r4{
-      left: $tile-width*4;
-    }
-
-    .c0{
-      top: 0;
-    }
-    .c1{
-      top: $tile-width;
-    }
-    .c2{
-      top: $tile-width*2;
-    }
-    .c3{
-      top: $tile-width*3;
-    }
-    .c4{
-      top: $tile-width*4;
-    }
-  }
-}
+@import "base";
 .r0{
   top: 0;
 }

@@ -23,9 +23,13 @@ angular.module('metroApp', [
             .when('/about', {
                 templateUrl: 'views/about.html',
                 controller: 'AboutCtrl'
+            }).when('/hello', {
+                templateUrl: 'views/about.html',
+                controller: 'AboutCtrl'
             })
             .otherwise({
-                template: "view does not exist for this url!"
+                template: '<div ng-include="templateUrl">Loading...</div>',
+                controller: 'DynamicCtrl'
             });
     }).value('data', {
         'groups': [
@@ -40,6 +44,10 @@ angular.module('metroApp', [
             {
                 'id': 3,
                 'title': "Other"
+            },
+            {
+                'id': 4,
+                'title': "Test"
             }
         ],
         'tiles': [
@@ -83,6 +91,26 @@ angular.module('metroApp', [
                 id: "6",
                 name: "6",
                 order: 5,
+                size: 1,
+                group: 1
+            },
+            {
+                id: "7",
+                name: "7",
+                order: 6,
+                size: 2,
+                group: 1
+            },
+            {
+                id: "8",
+                name: "8",
+                order: 7,
+                size: 2,
+                group: 1
+            },{
+                id: "9",
+                name: "9",
+                order: 8,
                 size: 1,
                 group: 1
             },
@@ -159,6 +187,43 @@ angular.module('metroApp', [
                 order: 3,
                 size: 2,
                 group: 3
+            },
+            {
+                id: "121",
+                name: "Nokia Camera",
+                order: 1,
+                size: 2,
+                group: 4
+            },
+            {
+                id: "221",
+                name: "Google Search",
+                order: 2,
+                size: 1,
+                side: 'left',
+                group: 4
+            },
+            {
+                id: "321",
+                name: "QQ",
+                order: 2,
+                size: 1,
+                side: 'right',
+                group: 4
+            },
+            {
+                id: "421",
+                name: "Evernote",
+                order: 3,
+                size: 2,
+                group: 4
+            },
+            {
+                id: "521",
+                name: "Koding",
+                order: 3,
+                size: 2,
+                group: 4
             }
         ]
     });
