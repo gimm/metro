@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('metroApp')
-    .directive('tile', function () {
+    .directive('tile', function ($location) {
         return {
             transclude: true,
             replace: true,
@@ -13,9 +13,13 @@ angular.module('metroApp')
 
                 element.bind('click',function (e) {
                         console.log('tile clicked!');
-//                        this.classList.add('selected');
-                        e.stopPropagation();
-                        scope.operate(this.dataset.appId, 'customize');
+                        if(scope.operation === 'customize'){
+                            this.classList.add('selected');
+                            e.stopPropagation();
+                            scope.operate(this.dataset.appId, 'customize');
+                        }else {
+                            $location.url('/' + this.dataset.appId);
+                        }
                     }
                 ).bind('contextmenu', function (e) {
                         if (e.stopPropagation) {

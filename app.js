@@ -1,3 +1,4 @@
+'use strict';
 
 var express = require('express'),
     http = require('http'),
@@ -45,12 +46,12 @@ app.configure(function () {
  */
 http.createServer(app).listen(app.get('port'), function () {
     //check db
-    var db = new mongo.Db('metro', new mongo.Server('localhost', 27017, {auto_reconnect: true}), {safe: false});
+    var db = new mongo.Db('metro', new mongo.Server('localhost', 27017, {'auto_reconnect': true}), {safe: false});
     db.open(function (err, db) {
         if (!err) {
-            console.log("Connected to 'metro' database");
+            console.log('Connected to metro database');
             db.collections(function (err, collections) {
-                var collections =  collections.filter(function (collection) {
+                collections =  collections.filter(function (collection) {
                     return collection.collectionName.indexOf('.') === -1;
                 });
                 if(collections.length === 0){

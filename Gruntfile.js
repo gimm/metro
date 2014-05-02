@@ -29,7 +29,7 @@ module.exports = function (grunt) {
                 tasks: ['newer:jshint:all']
             },
             compass: {
-                files: ['<%= yo.webdir %>/styles/{,*/}*.{scss,sass}'],
+                files: ['<%= yo.webdir %>/styles/scss/{,*/}*.{scss,sass}'],
                 tasks: ['compass:server', 'autoprefixer']
             },
             livereload: {
@@ -38,7 +38,7 @@ module.exports = function (grunt) {
                 },
                 files: [
                     '<%= yo.webdir %>/{,*/}*.html',
-                    '.tmp/styles/{,*/}*.css',
+                    '<%= yo.webdir %>/styles/{,*/}*.css',
                     '<%= yo.webdir %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
             },
@@ -119,7 +119,7 @@ module.exports = function (grunt) {
                         expand: true,
                         cwd: '.tmp/styles/',
                         src: '{,*/}*.css',
-                        dest: '.tmp/styles/'
+                        dest: '<%= yo.webdir %>/styles/'
                     }
                 ]
             }
@@ -137,7 +137,7 @@ module.exports = function (grunt) {
         // Compiles Sass to CSS and generates necessary files if requested
         compass: {
             options: {
-                sassDir: '<%= yo.webdir %>/styles',
+                sassDir: '<%= yo.webdir %>/styles/scss',
                 cssDir: '.tmp/styles',
                 generatedImagesDir: '.tmp/images/generated',
                 imagesDir: '<%= yo.webdir %>/images',

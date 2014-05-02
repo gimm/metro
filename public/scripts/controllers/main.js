@@ -6,10 +6,12 @@ angular.module('metroApp')
         $scope.size = grid.size;
         $scope.groups = grid.groups;
         $scope.operation = 'none';
-        $scope.dragged;
+        $scope.dragged = undefined;
 
         $scope.clicked = function () {
             console.log('clicked!!');
+            $scope.operation = 'none';
+            delete $scope.tile.selected;
         };
 
         $scope.coords = function (tile) {
@@ -72,7 +74,7 @@ angular.module('metroApp')
                 }
 
                 if (dragged.size === 2) {
-                    angular.forEach(draggedGroup, function (tile, index) {
+                    angular.forEach(draggedGroup, function (tile) {
                         if (tile.order >= start && tile.order <= end) {
                             if (increase) {
                                 tile.order += 1;
@@ -95,7 +97,7 @@ angular.module('metroApp')
                             if(grid.isSingle(dragged)){
                                 start = dragged.order + 1;
                                 console.log(start);
-                                angular.forEach(draggedGroup, function (tile, index) {
+                                angular.forEach(draggedGroup, function (tile) {
                                     if (tile.order >= start) {
                                         tile.order -= 1;
                                     }
@@ -103,7 +105,7 @@ angular.module('metroApp')
                             }
                             dragged.order = dropped.order;
                         } else {//target row is full
-                            angular.forEach(draggedGroup, function (tile, index) {
+                            angular.forEach(draggedGroup, function (tile) {
                                 if (tile.order >= start && tile.order <= end) {
                                     if (increase) {
                                         tile.order += 1;
@@ -116,7 +118,7 @@ angular.module('metroApp')
                         }
                     } else {//dragged =1, dropped =2
                         if (grid.isSingle(dragged)) {//dragged row is full
-                            angular.forEach(draggedGroup, function (tile, index) {
+                            angular.forEach(draggedGroup, function (tile) {
                                 if (tile.order >= start && tile.order <= end) {
                                     if (increase) {
                                         tile.order += 1;
@@ -128,7 +130,7 @@ angular.module('metroApp')
                             dragged.order = increase ? start : end;
                         } else {
                             start = dropped.order;
-                            angular.forEach(draggedGroup, function (tile, index) {
+                            angular.forEach(draggedGroup, function (tile) {
                                 if (tile.order >= start) {
                                     tile.order += 1;
                                 }
@@ -139,12 +141,12 @@ angular.module('metroApp')
                 }
             } else {
                 if(dragged.size === 2){
-                    angular.forEach(draggedGroup, function (tile, index) {
+                    angular.forEach(draggedGroup, function (tile) {
                         if (tile.order > draggedCopy.order) {
                             tile.order -= 1;
                         }
                     });
-                    angular.forEach(droppedGroup, function (tile, index) {
+                    angular.forEach(droppedGroup, function (tile) {
                         if (tile.order >= droppedCopy.order) {
                             tile.order += 1;
                         }
@@ -153,14 +155,14 @@ angular.module('metroApp')
                     dragged.order = droppedCopy.order;
                 }else {
                     if(grid.isSingle(dragged)){
-                        angular.forEach(draggedGroup, function (tile, index) {
+                        angular.forEach(draggedGroup, function (tile) {
                             if (tile.order > draggedCopy.order) {
                                 tile.order -= 1;
                             }
                         });
                     }
                     if(dropped.size === 2 || !grid.isSingle(dropped)){
-                        angular.forEach(droppedGroup, function (tile, index) {
+                        angular.forEach(droppedGroup, function (tile) {
                             if (tile.order >= droppedCopy.order) {
                                 tile.order += 1;
                             }
@@ -179,5 +181,5 @@ angular.module('metroApp')
             $scope.enter(appId);
             console.log('drop', appId);
             $scope.$apply($scope.operation = 'none');
-        }
+        };
     });
