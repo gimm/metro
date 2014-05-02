@@ -1,0 +1,41 @@
+/*
+Syntax error: Invalid CSS after "$font-face ": expected ":", was "{"
+        on line 1 of icons.scss
+
+1: $font-face {
+2:     font-family: 'iconFont';
+3:     src:url('../fonts/iconFont.eot');
+4:     src:url('../fonts/iconFont.eot?#iefix') format('embedded-opentype'),
+5:     url('../fonts/iconFont.woff') format('woff'),
+6:     url('../fonts/iconFont.ttf') format('truetype'),
+
+Backtrace:
+icons.scss:1
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:1147:in `expected'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:1085:in `expected'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:1080:in `tok!'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:512:in `variable'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:553:in `block_child'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:543:in `block_contents'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:82:in `stylesheet'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:27:in `parse'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/engine.rb:342:in `_to_tree'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/engine.rb:315:in `_render'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/engine.rb:262:in `render'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/plugin/compiler.rb:362:in `update_stylesheet'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/plugin/compiler.rb:203:in `block in update_stylesheets'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/plugin/compiler.rb:201:in `each'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/plugin/compiler.rb:201:in `update_stylesheets'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/plugin.rb:81:in `update_stylesheets'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/exec.rb:443:in `watch_or_update'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/exec.rb:326:in `process_result'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/exec.rb:41:in `parse'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/exec.rb:21:in `parse!'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/bin/scss:13:in `<top (required)>'
+C:/Ruby200-x64/bin/scss:23:in `load'
+C:/Ruby200-x64/bin/scss:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: Invalid CSS after \"$font-face \": expected \":\", was \"{\"\A         on line 1 of icons.scss\A \A 1: $font-face {\A 2:     font-family: 'iconFont';\A 3:     src:url('../fonts/iconFont.eot');\A 4:     src:url('../fonts/iconFont.eot?#iefix') format('embedded-opentype'),\A 5:     url('../fonts/iconFont.woff') format('woff'),\A 6:     url('../fonts/iconFont.ttf') format('truetype'),"; }

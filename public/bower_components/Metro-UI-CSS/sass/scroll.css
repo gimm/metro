@@ -1,0 +1,55 @@
+/*
+Syntax error: Invalid CSS after "...crollbar-button": expected "{", was ";"
+        on line 37 of scroll.scss
+
+32: }
+33: 
+34: .scrollbar-v-up, .scrollbar-v-down, .scrollbar-h-up, .scrollbar-h-down, .scrollbar-line-v-btn, .scrollbar-line-h-btn {
+35:     cursor: pointer;
+36:     position: absolute;
+37:     .scrollbar-button;
+38: }
+39: 
+40: .scrollbar-line-v-btn, .scrollbar-line-h-btn {
+41:     &:hover {
+42:         background-color: #f0f0f0;
+
+Backtrace:
+scroll.scss:37
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:1147:in `expected'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:1085:in `expected'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:1080:in `tok!'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:534:in `block'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:529:in `ruleset'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:591:in `block in declaration_or_ruleset'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:1123:in `call'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:1123:in `rethrow'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:592:in `declaration_or_ruleset'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:554:in `block_child'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:546:in `block_contents'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:535:in `block'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:529:in `ruleset'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:553:in `block_child'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:546:in `block_contents'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:82:in `stylesheet'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/scss/parser.rb:27:in `parse'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/engine.rb:342:in `_to_tree'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/engine.rb:315:in `_render'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/engine.rb:262:in `render'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/plugin/compiler.rb:362:in `update_stylesheet'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/plugin/compiler.rb:203:in `block in update_stylesheets'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/plugin/compiler.rb:201:in `each'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/plugin/compiler.rb:201:in `update_stylesheets'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/plugin.rb:81:in `update_stylesheets'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/exec.rb:443:in `watch_or_update'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/exec.rb:326:in `process_result'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/exec.rb:41:in `parse'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/lib/sass/exec.rb:21:in `parse!'
+C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.14/bin/scss:13:in `<top (required)>'
+C:/Ruby200-x64/bin/scss:23:in `load'
+C:/Ruby200-x64/bin/scss:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: Invalid CSS after \"...crollbar-button\": expected \"{\", was \";\"\A         on line 37 of scroll.scss\A \A 32: }\A 33: \A 34: .scrollbar-v-up, .scrollbar-v-down, .scrollbar-h-up, .scrollbar-h-down, .scrollbar-line-v-btn, .scrollbar-line-h-btn {\A 35:     cursor: pointer;\A 36:     position: absolute;\A 37:     .scrollbar-button;\A 38: }\A 39: \A 40: .scrollbar-line-v-btn, .scrollbar-line-h-btn {\A 41:     &:hover {\A 42:         background-color: #f0f0f0;"; }
