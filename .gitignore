@@ -1,5 +1,8 @@
 node_modules
 dist
+data
+.idea
 .tmp
 .sass-cache
-app/bower_components
+public/bower_components
+public/styles/**/*.css

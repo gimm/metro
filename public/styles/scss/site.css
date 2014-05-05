@@ -1,8 +1,9 @@
 .tile {
+  height: 10em;
   transition: all .5s ease-in-out;
   text-align: center;
-  font-weight: bold;
-  height: 10em;
+  font-style: oblique;
+  nt-weight: bold;
   padding: 0.2em; }
   @media (min-width: 992px) {
     .tile {
