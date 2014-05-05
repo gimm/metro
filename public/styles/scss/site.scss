@@ -1,0 +1,111 @@
+@import "variables";
+@import "tile";
+
+
+// coords
+@for $i from 0 through 9 {
+  .r#{$i} { 
+    top: $tile-width * $i; 
+  }
+  .c#{$i} { 
+    left: $tile-width * $i; 
+  }
+}
+@for $i from 1 through 10 {
+  .s#{$i} { width: $tile-width * $i; }
+}
+
+@media (max-width: $screen-sm-max) {
+  @for $i from 3 through 10 {
+    .s#{$i} { width: 100%; }
+  }
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #0F6D32;
+}
+
+//  login
+.login-wrapper {
+  color: #ffffff;
+  height: 100%;
+  width: 100%;
+  display: table;
+
+  .login-container {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+  }
+}
+
+@media (min-width: $screen-lg-min) {
+  .login-avatar {
+    border-right: thin solid tomato;
+    text-align: right;
+  }
+  .login-form {
+    width: 250px;
+  }
+}
+
+//home
+.navbar-raw{
+  background-color: transparent;
+  border-color: transparent;
+}
+main.container{
+  overflow: hidden;
+}
+.panorama{
+  color: #ffffff;
+  display: flex;
+  @media (max-width: $screen-sm-max) {
+    width: 100% !important;
+    flex-direction: column;
+  }
+  height: 100%;
+  .group{
+    transition: all .5s ease-in-out;
+    min-width: $tile-width;
+    h3{
+      height: 2em;
+    }
+    .group-content{
+      @media (min-width: $screen-md-min) {
+        height: $tile-width*3;
+        flex-direction: column;
+      }
+
+      position: relative;
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+    }
+  }
+  .group-splitter{
+    width: 2em;
+    height: $tile-width*3;
+    margin-top: 56px;
+  }
+  &.reordering{
+    .group-splitter{
+      background-color: rgba(231, 221, 221, .3);
+    }
+    .tile{
+      padding: 0.5em;
+      .content{
+        border: 0.3em solid darken(#2e8bcc, 20%);
+      }
+    }
+  }
+  &.customizing{
+    .tile{
+      padding: .5em;
+    }
+  }
+}

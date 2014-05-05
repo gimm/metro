@@ -1,0 +1,51 @@
+.tile {
+    transition: all .5s ease-in-out;
+    text-align: center;
+    font-weight: bold;
+    height: $tile-width;
+    padding: 0.2em;
+    @media (min-width: $screen-md-min) {
+        position: absolute;
+    }
+    .content {
+        cursor: pointer;
+        height: 100%;
+        background-color: #2e8bcc;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    &.drag {
+        opacity: 0.8;
+    }
+    &.over {
+        background-color: green;
+    }
+    &.selected {
+        .content {
+            border: 0.3em solid darken(#2e8bcc, 20%);
+        }
+        &:before {
+            position: absolute;
+            display: block;
+            content:"\e013";
+            font-family:'Glyphicons Halflings';
+            color: #fff;
+            right: 1.2em;
+            font-size: .6em;
+            font-weight: normal;
+            z-index: 102;
+            top: 1.2em;
+        }
+        &:after {
+            position: absolute;
+            display: block;
+            border-top: 2em solid darken(#2e8bcc, 20%);
+            border-left: 2em solid transparent;
+            right: .5em;
+            content:"";
+            top: .5em;
+            z-index: 101;
+        }
+    }
+}

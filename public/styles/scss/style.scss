@@ -1,0 +1,19 @@
+.g1 div{
+  background-color: tomato;
+  height: 100px;
+  color: #ffffff;
+  min-width: 100px;
+  transition: all .5s ease-in-out;
+}
+.g2 .row div{
+  background-color: indigo;
+  height: 100px;
+  color: #ffffff;
+  min-width: 100px;
+}
+.g3 .row div{
+  background-color: #f0ad4e;
+  height: 100px;
+  color: #ffffff;
+  min-width: 100px;
+}
