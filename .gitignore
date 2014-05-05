@@ -6,3 +6,4 @@ data
 .sass-cache
 public/bower_components
 public/styles/**/*.css
+*sublime*
