@@ -11,17 +11,25 @@
     left: $tile-width * $i; 
   }
 }
-@for $i from 1 through 10 {
+@for $i from 0 through 9 {
   .s#{$i} { width: $tile-width * $i; }
 }
 
 @media (max-width: $screen-sm-max) {
+  @for $i from 0 through 9 {
+    .r#{$i} {
+      top: 0;
+    }
+    .c#{$i} {
+      left: 0;
+    }
+  }
   @for $i from 3 through 10 {
     .s#{$i} { width: 100%; }
   }
 }
 
-html, body {
+html, body, main {
   height: 100%;
 }
 
@@ -58,7 +66,7 @@ body {
   background-color: transparent;
   border-color: transparent;
 }
-main.container{
+main >.container{
   overflow: hidden;
 }
 .panorama{

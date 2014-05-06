@@ -8,10 +8,17 @@ angular.module('metroApp')
         $scope.operation = 'none';
         $scope.dragged = undefined;
 
-        $scope.clicked = function () {
-            console.log('clicked!!');
-            $scope.operation = 'none';
-            delete $scope.tile.selected;
+        $scope.clicked = function (event) {
+            if($scope.operation === 'none' && event.button === 2){//enter customize mode
+                $scope.operation = 'customize';
+            }else{//reset mode to 'none'
+                $scope.operation = 'none';
+                if($scope.tile){
+                    delete $scope.tile.selected;
+                    delete $scope.tile;
+                }
+            }
+            console.log('panaroma clicked!!');
         };
 
         $scope.coords = function (tile) {
@@ -41,11 +48,28 @@ angular.module('metroApp')
         $scope.resize = function () {
             if($scope.tile.size === 1){
                 $scope.tile.size = 2;
+                if(!grid.isSingle($scope.tile)){
+                    var params = {increase: true};
+                    params.start = $scope.tile.order;
+                    $scope.changeOrders(grid.byGroup($scope.tile.group), params);
+                }
             }else{
                 $scope.tile.size = 1;
             }
             console.log('resize', $scope.tile);
 //            $scope.$apply();
+        };
+        $scope.uninstall = function () {
+//            $scope.tile.size = 0;
+            console.log('uninstall');
+            var group = $scope.groups.filter(function (group) {
+                return group.id === $scope.tile.group;
+            }).pop();
+            group.tiles.forEach(function (tile, index) {
+                if(tile.id === $scope.tile.id){
+                    group.tiles.splice(index, 1);
+                }
+            });
         };
 
         $scope.enter = function (appId) {
@@ -181,5 +205,25 @@ angular.module('metroApp')
             $scope.enter(appId);
             console.log('drop', appId);
             $scope.$apply($scope.operation = 'none');
+        };
+
+        /**
+         * change tiles' order according to params
+         * @param tiles tile array, must be ordered by 'order'
+         * @param params {start:0, increase: true, end: Number.MAX_VALUE}
+         */
+        $scope.changeOrders = function (tiles, params) {
+            var start = params.start || 0;
+            var end = params.end || Number.MAX_VALUE;
+            var increase = !!params.increase;
+            tiles.filter(function (tile) {
+               return tile.order > start && tile.order < end;
+            }).forEach(function (tile) {
+                if(increase){
+                    tile.order += 1;
+                }else{
+                    tile.order -= 1;
+                }
+            });
         };
     });

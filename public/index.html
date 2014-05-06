@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="styles/site.css">
     <!-- endbuild -->
 </head>
-<body ng-app="metroApp" ng-view>
+<body ng-app="metroApp">
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
@@ -29,6 +29,8 @@
 
 
 <!-- Add your site or application content here -->
+<main ng-view ng-click="clicked($event)" right-click="clicked($event)"></main>
+
 
 <!--[if lt IE 9]>
 <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -53,6 +55,7 @@
 <script src="scripts/directives/scroll.js"></script>
 <script src="scripts/directives/group.js"></script>
 <script src="scripts/directives/tile.js"></script>
+<script src="scripts/directives/rightClick.js"></script>
 <!-- endbuild -->
 
 </body>
