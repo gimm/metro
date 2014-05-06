@@ -17,7 +17,7 @@ angular.module("metroApp").service("grid", function ($q, $timeout, data) {
         return defer.promise;
     };
 
-    this.byId = function (appId) {
+    this.tileById = function (appId) {
         return this.tiles.filter(function (tile) {
            return tile.id == appId;
         }).pop();
@@ -28,23 +28,19 @@ angular.module("metroApp").service("grid", function ($q, $timeout, data) {
         });
         return tiles.length === 1;
     };
-    this.removeById = function (appId) {
-        angular.forEach(this.tiles, function (tile, index) {
-            if(tile.id == appId){
-                this.tiles.splice(index, 1);
-                console.log('remove tile', tile);
-            }
-        }, this);
-    }
 
-    this.byGroup = function (groupId) {
+    this.tileByGroup = function (groupId) {
         return this.tiles.filter(function (tile) {
             return tile.group == groupId;
         });
     };
-
+    this.groupById = function (groupId) {
+        return this.groups.filter(function (group) {
+            return group.id == groupId;
+        }).pop();
+    };
     this.groupSize = function (groupId) {
-        var tiles = this.byGroup(groupId);
+        var tiles = this.tileByGroup(groupId);
         tiles.sort(function (t1, t2) {
             return t1.order - t2.order;
         });
@@ -56,7 +52,7 @@ angular.module("metroApp").service("grid", function ($q, $timeout, data) {
     this.render = function () {
         this.size.em = 0;
         angular.forEach(this.groups, function (group) {
-            group.tiles = this.byGroup(group.id);
+            group.tiles = this.tileByGroup(group.id);
             group.size = this.groupSize(group.id);
             this.size.em += (group.size*10 +2);
         }, this);

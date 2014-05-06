@@ -6,7 +6,7 @@ angular.module('metroApp')
         $scope.size = grid.size;
         $scope.groups = grid.groups;
         $scope.operation = 'none';
-        $scope.dragged = undefined;
+        $scope.target = undefined;  //current tile
 
         $scope.clicked = function (event) {
             if($scope.operation === 'none' && event.button === 2){//enter customize mode
@@ -33,16 +33,15 @@ angular.module('metroApp')
 
         $scope.operate = function (appId, operation) {
             console.log('customize', appId);
+            $scope.reset();
+            $scope.tile = grid.tileById(appId);
             if(operation === 'customize'){
-                if($scope.tile){
-                    delete $scope.tile.selected;
-                }
-                $scope.tile = grid.byId(appId);
                 $scope.tile.selected = true;
-                grid.render();
             }
-            $scope.$apply($scope.operation = operation);
-            $scope.dragged = grid.byId(appId);
+            $scope.$apply(function () {
+                $scope.operation = operation;
+            });
+            $scope.dragged = grid.tileById(appId);
         };
 
         $scope.resize = function () {
@@ -51,7 +50,7 @@ angular.module('metroApp')
                 if(!grid.isSingle($scope.tile)){
                     var params = {increase: true};
                     params.start = $scope.tile.order;
-                    $scope.changeOrders(grid.byGroup($scope.tile.group), params);
+                    $scope.changeOrders(grid.tileByGroup($scope.tile.group), params);
                 }
             }else{
                 $scope.tile.size = 1;
@@ -74,13 +73,13 @@ angular.module('metroApp')
 
         $scope.enter = function (appId) {
             var dragged = $scope.dragged;
-            var dropped = grid.byId(appId);
+            var dropped = grid.tileById(appId);
 
             var draggedCopy = angular.copy(dragged);
             var droppedCopy = angular.copy(dropped);
 
-            var draggedGroup = grid.byGroup(dragged.group);
-            var droppedGroup = grid.byGroup(dropped.group);
+            var draggedGroup = grid.tileByGroup(dragged.group);
+            var droppedGroup = grid.tileByGroup(dropped.group);
 
             var increase = true;
             var start = dropped.order;
@@ -205,6 +204,19 @@ angular.module('metroApp')
             $scope.enter(appId);
             console.log('drop', appId);
             $scope.$apply($scope.operation = 'none');
+        };
+
+        /**
+         * reset operation state to 'none'
+         */
+        $scope.reset = function () {
+            if($scope.operation !== 'none'){
+                $scope.operation = 'none';
+                if($scope.tile){
+                    delete $scope.tile.selected;
+                    delete $scope.tile.selected;
+                }
+            }
         };
 
         /**

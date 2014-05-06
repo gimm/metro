@@ -8,6 +8,27 @@ angular.module('metroApp')
             templateUrl: "templates/tile.html",
             restrict: 'E',
             require: "^group",
+            controller: function ($scope, $element, grid) {
+                $scope.dragenter = function (appId) {
+                    console.log('dragenter......', $scope.tile.id, appId);
+                    var dragged = $scope.tile;
+                    var dropped = grid.tileById(appId);
+                    console.log(dragged.order, dropped.order);
+                    var draggedCopy = angular.copy(dragged);
+                    var droppedCopy = angular.copy(dropped);
+
+                    var extraction = {increase: false, start: draggedCopy.order};
+                    $scope.changeOrders(grid.groupById(dragged.group).tiles, extraction);
+
+                    var insertion = {increase: true, start: droppedCopy.order};
+                    $scope.changeOrders(grid.groupById(dropped.group).tiles, insertion);
+
+
+                    $scope.$apply(function () {
+                        dragged.order = droppedCopy.order;
+                    });
+                };
+            },
             link: function (scope, element, attrs, groupCtrl) {
                 element.attr("draggable", true);
 
@@ -50,7 +71,7 @@ angular.module('metroApp')
                     }
                 ).bind('dragenter',function (e) {
                         this.classList.add('over');
-                        scope.enter(this.dataset.appId);
+                        scope.dragenter(this.dataset.appId);
 
                         return false;
                     }
@@ -64,7 +85,7 @@ angular.module('metroApp')
                             e.stopPropagation();
                         }
                         this.classList.remove('over');
-                        scope.drop(this.dataset.appId);
+//                        scope.drop(this.dataset.appId);
                         return false;
                     }
                 );
