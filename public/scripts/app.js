@@ -62,15 +62,13 @@ angular.module('metroApp', [
                 id: "2",
                 name: "2",
                 order: 2,
-                side: 'left',
                 size: 1,
                 group: 1
             },
             {
                 id: "3",
                 name: "2.5",
-                order: 2,
-                side: 'right',
+                order: 2.5,
                 size: 1,
                 group: 1
             },
@@ -84,34 +82,28 @@ angular.module('metroApp', [
             {
                 id: "5",
                 name: "4",
-                order: 4,
-                size: 2,
+                order: 4.5,
+                size: 1,
                 group: 1
             },{
                 id: "6",
-                name: "6",
+                name: "5",
                 order: 5,
                 size: 1,
                 group: 1
             },
             {
                 id: "7",
-                name: "7",
+                name: "6",
                 order: 6,
                 size: 2,
                 group: 1
             },
             {
                 id: "8",
-                name: "8",
+                name: "7",
                 order: 7,
                 size: 2,
-                group: 1
-            },{
-                id: "9",
-                name: "9",
-                order: 8,
-                size: 1,
                 group: 1
             },
             {
@@ -125,32 +117,31 @@ angular.module('metroApp', [
                 id: "21",
                 name: "Google Search",
                 order: 2,
-                size: 1,
-                side: 'left',
+                size: 2,
                 group: 2
             },
             {
                 id: "31",
                 name: "QQ",
-                order: 2,
-                size: 1,
-                side: 'right',
+                order: 3,
+                size: 2,
                 group: 2
             },
             {
                 id: "41",
                 name: "Evernote",
-                order: 3,
+                order: 4,
                 size: 2,
                 group: 2
             },
             {
                 id: "51",
                 name: "Koding",
-                order: 3,
+                order: 5,
                 size: 2,
                 group: 2
-            },
+            }
+            ,
             {
                 id: "111",
                 name: "Nokia Camera",
@@ -169,9 +160,8 @@ angular.module('metroApp', [
             {
                 id: "311",
                 name: "QQ",
-                order: 2,
+                order: 2.5,
                 size: 1,
-                side: 'right',
                 group: 3
             },
             {
@@ -184,7 +174,7 @@ angular.module('metroApp', [
             {
                 id: "511",
                 name: "Koding",
-                order: 3,
+                order: 4,
                 size: 2,
                 group: 3
             },
@@ -200,15 +190,13 @@ angular.module('metroApp', [
                 name: "Google Search",
                 order: 2,
                 size: 1,
-                side: 'left',
                 group: 4
             },
             {
                 id: "321",
                 name: "QQ",
-                order: 2,
+                order: 2.5,
                 size: 1,
-                side: 'right',
                 group: 4
             },
             {
@@ -221,7 +209,7 @@ angular.module('metroApp', [
             {
                 id: "521",
                 name: "Koding",
-                order: 3,
+                order: 4,
                 size: 2,
                 group: 4
             }

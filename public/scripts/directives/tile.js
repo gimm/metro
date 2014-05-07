@@ -1,31 +1,69 @@
 'use strict';
 
 angular.module('metroApp')
-    .directive('tile', function ($location) {
+    .directive('tile', function ($location, $timeout, grid) {
         return {
             transclude: true,
             replace: true,
             templateUrl: "templates/tile.html",
             restrict: 'E',
             require: "^group",
-            controller: function ($scope, $element, grid) {
+            controller: function ($scope, $element) {
                 $scope.dragenter = function (appId) {
-                    console.log('dragenter......', $scope.tile.id, appId);
-                    var dragged = $scope.tile;
+                    var dragged = $scope.target;
                     var dropped = grid.tileById(appId);
-                    console.log(dragged.order, dropped.order);
+
+                    console.log(dragged.id, '=', dragged.order,'|' , dropped.id,'=', dropped.order);
                     var draggedCopy = angular.copy(dragged);
                     var droppedCopy = angular.copy(dropped);
 
-                    var extraction = {increase: false, start: draggedCopy.order};
-                    $scope.changeOrders(grid.groupById(dragged.group).tiles, extraction);
+                    var change = {};
 
-                    var insertion = {increase: true, start: droppedCopy.order};
-                    $scope.changeOrders(grid.groupById(dropped.group).tiles, insertion);
+                    //extraction
+                    var decreasePoint = dragged.order;
+                    if(grid.tileHasSibling(dragged)){
+                        decreasePoint = undefined;
+                    }
+                    //insertion
+                    var increasePoint = dropped.order;
+                    if(dropped.size === 1){
+                        if(Math.floor(dropped.order) === Math.floor(dragged.order) || (!grid.tileHasSibling(dropped) && dragged.size === 1)){
+                            increasePoint = undefined;
+                        }
+                    }
+
+                    if(increasePoint && decreasePoint){
+                        change.increase = decreasePoint > increasePoint;
+                        change.start = change.increase ? increasePoint : decreasePoint;
+                        change.end = change.increase ? decreasePoint : increasePoint;
+                    }else if(increasePoint){
+                        change.increase = true;
+                        change.start = increasePoint;
+                    }else if(decreasePoint){
+                        change.increase = false;
+                        change.start = decreasePoint;
+                    }
+
+
+                    $scope.changeOrders(grid.groupById(dragged.group).tiles, change.increase, change.start, change.end);
 
 
                     $scope.$apply(function () {
-                        dragged.order = droppedCopy.order;
+                        //fixes for special cases
+                        var targetOrder = droppedCopy.order;
+                        if(dropped.order%1 && dragged.size===2){
+                            targetOrder = Math.floor(targetOrder);
+                        }else if(!increasePoint){
+                            if(dropped.order%1){
+                                dropped.order -= 0.5;
+                            }else{
+                                dropped.order += 0.5;
+                            }
+                            if(decreasePoint && draggedCopy.order < droppedCopy.order){
+                                targetOrder -= 1;
+                            }
+                        }
+                        dragged.order = targetOrder;
                     });
                 };
             },
@@ -71,7 +109,20 @@ angular.module('metroApp')
                     }
                 ).bind('dragenter',function (e) {
                         this.classList.add('over');
-                        scope.dragenter(this.dataset.appId);
+                        if(scope.target.id !== this.dataset.appId) {
+                            if(!grid.vars.moving){
+                                grid.vars.moving = true;
+                                scope.dragenter(this.dataset.appId);
+                                var timer = $timeout(function () {
+                                    console.log('timeout');
+                                    grid.vars.moving = false;
+                                }, grid.vars.delay).then(function () {
+                                    $timeout.cancel(timer);
+                                });
+                            }else{
+                                console.log('skip');
+                            }
+                        }
 
                         return false;
                     }

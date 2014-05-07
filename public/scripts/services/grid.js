@@ -1,10 +1,12 @@
 angular.module("metroApp").service("grid", function ($q, $timeout, data) {
     this.MAX_ROW = 3;
-    this.size = {
-        'em': 0
-    };
     this.tiles = [];
     this.groups = [];
+    this.vars = {
+        size: 0,    //panaroma size
+        moving: false,  //dragging state
+        delay: 500  //dragging animation delay
+    };
 
     this.load = function () {
         //fetch tiles and groups info
@@ -22,11 +24,14 @@ angular.module("metroApp").service("grid", function ($q, $timeout, data) {
            return tile.id == appId;
         }).pop();
     };
-    this.isSingle = function (tile) {
-        var tiles = this.byGroup(tile.group).filter(function (t) {
-            return t.order == tile.order;
-        });
-        return tiles.length === 1;
+    this.tileHasSibling = function (tile) {
+        if(tile.size === 1){
+            var siblingOrder = tile.order%1 ? (tile.order-0.5) : (tile.order+0.5);
+            return this.groupById(tile.group).tiles.filter(function (t) {
+                return t.order == siblingOrder;
+            }).length > 0;
+        }
+        return false;
     };
 
     this.tileByGroup = function (groupId) {
@@ -49,14 +54,12 @@ angular.module("metroApp").service("grid", function ($q, $timeout, data) {
     };
 
     //generate layout for group
-    this.render = function () {
-        this.size.em = 0;
+    this.init = function () {
         angular.forEach(this.groups, function (group) {
             group.tiles = this.tileByGroup(group.id);
             group.size = this.groupSize(group.id);
-            this.size.em += (group.size*10 +2);
+            this.vars.size += (group.size*10 +2);
         }, this);
-        console.log(this.size, 'fff');
     };
     this.update = function () {
 

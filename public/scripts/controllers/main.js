@@ -2,8 +2,8 @@
 
 angular.module('metroApp')
     .controller('MainCtrl', function ($scope, grid) {
-        grid.render();
-        $scope.size = grid.size;
+        grid.init();
+        $scope.size = grid.vars.size;
         $scope.groups = grid.groups;
         $scope.operation = 'none';
         $scope.target = undefined;  //current tile
@@ -13,18 +13,18 @@ angular.module('metroApp')
                 $scope.operation = 'customize';
             }else{//reset mode to 'none'
                 $scope.operation = 'none';
-                if($scope.tile){
-                    delete $scope.tile.selected;
-                    delete $scope.tile;
+                if($scope.target){
+                    delete $scope.target.selected;
+                    delete $scope.target;
                 }
             }
             console.log('panaroma clicked!!');
         };
 
         $scope.coords = function (tile) {
-            var r = (tile.order - 1) % grid.MAX_ROW;
-            var c = Math.floor((tile.order - 1) / grid.MAX_ROW) * 2;
-            if (tile.side === 'right') {
+            var r = Math.floor((tile.order-1) % grid.MAX_ROW);
+            var c = (Math.ceil(Math.floor(tile.order) / grid.MAX_ROW) - 1) * 2;
+            if (tile.order%1) {
                 c += 1;
             }
 
@@ -34,9 +34,9 @@ angular.module('metroApp')
         $scope.operate = function (appId, operation) {
             console.log('customize', appId);
             $scope.reset();
-            $scope.tile = grid.tileById(appId);
+            $scope.target = grid.tileById(appId);
             if(operation === 'customize'){
-                $scope.tile.selected = true;
+                $scope.target.selected = true;
             }
             $scope.$apply(function () {
                 $scope.operation = operation;
@@ -45,27 +45,27 @@ angular.module('metroApp')
         };
 
         $scope.resize = function () {
-            if($scope.tile.size === 1){
-                $scope.tile.size = 2;
-                if(!grid.isSingle($scope.tile)){
+            if($scope.target.size === 1){
+                $scope.target.size = 2;
+                if(!grid.isSingle($scope.target)){
                     var params = {increase: true};
-                    params.start = $scope.tile.order;
-                    $scope.changeOrders(grid.tileByGroup($scope.tile.group), params);
+                    params.start = $scope.target.order;
+                    $scope.changeOrders(grid.tileByGroup($scope.target.group), params);
                 }
             }else{
-                $scope.tile.size = 1;
+                $scope.target.size = 1;
             }
-            console.log('resize', $scope.tile);
+            console.log('resize', $scope.target);
 //            $scope.$apply();
         };
         $scope.uninstall = function () {
-//            $scope.tile.size = 0;
+//            $scope.target.size = 0;
             console.log('uninstall');
             var group = $scope.groups.filter(function (group) {
-                return group.id === $scope.tile.group;
+                return group.id === $scope.target.group;
             }).pop();
             group.tiles.forEach(function (tile, index) {
-                if(tile.id === $scope.tile.id){
+                if(tile.id === $scope.target.id){
                     group.tiles.splice(index, 1);
                 }
             });
@@ -212,9 +212,9 @@ angular.module('metroApp')
         $scope.reset = function () {
             if($scope.operation !== 'none'){
                 $scope.operation = 'none';
-                if($scope.tile){
-                    delete $scope.tile.selected;
-                    delete $scope.tile.selected;
+                if($scope.target){
+                    delete $scope.target.selected;
+                    delete $scope.target.selected;
                 }
             }
         };
@@ -224,18 +224,30 @@ angular.module('metroApp')
          * @param tiles tile array, must be ordered by 'order'
          * @param params {start:0, increase: true, end: Number.MAX_VALUE}
          */
-        $scope.changeOrders = function (tiles, params) {
-            var start = params.start || 0;
-            var end = params.end || Number.MAX_VALUE;
-            var increase = !!params.increase;
-            tiles.filter(function (tile) {
-               return tile.order > start && tile.order < end;
-            }).forEach(function (tile) {
-                if(increase){
-                    tile.order += 1;
-                }else{
-                    tile.order -= 1;
+        $scope.changeOrders = function (tiles, increase, start, end) {
+            if(increase !== undefined) {
+                start = Math.floor(start || 0);
+                end = Math.ceil((end || Number.MAX_VALUE) + 0.5);
+                console.log('change', start, end);
+                tiles.filter(function (tile) {
+                    return tile.order >= start && tile.order < end;
+                }).forEach(function (tile) {
+                    if (increase) {
+                        tile.order += 1;
+                    } else {
+                        tile.order -= 1;
+                    }
+                });
+
+                //resize group
+                if(end > 1000){//if it's MAX_NUMBER
+                    grid.groupById($scope.target.group).size = grid.groupSize($scope.target.group);
+
+                    $scope.size = 0;
+                    angular.forEach($scope.groups, function (group) {
+                        $scope.size += (group.size*10 +2);
+                    });
                 }
-            });
+            }
         };
     });
