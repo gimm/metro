@@ -8,6 +8,7 @@ module.exports = function (app) {
     require('./main')(app);
     require('./hello')(app);
     require('./user')(app);
+    require('./group')(app);
 
     app.get('*.*', function (req, res) {
         var index = path.resolve('./' + req.url);

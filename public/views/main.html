@@ -8,14 +8,14 @@
 </div>
 <div class="container" scroll>
     <div ng-class="{customize:'customizing panorama', reorder:'reordering panorama', 'none': 'panorama'}[operation]" style="{{'width: ' + size + 'em'}}">
-        <section group ng-repeat-start="group in groups"></section>
-        <section ng-repeat-end class="group-splitter visible-lg visible-md"></section>
+        <section group ng-repeat-start="group in groups | orderBy:'order'"></section>
+        <section group-splitter ng-repeat-end></section>
     </div>
 </div>
-<div ng-class="{customize:'navbar navbar-default navbar-fixed-bottom', none: 'hidden'}[operation]">
+<div ng-class="{true:'navbar navbar-default navbar-fixed-bottom', false: 'hidden'}[operation=='customize']">
     <div class="container">
-        <a class="navbar-text" ng-click="uninstall()" ng-show="tile"><span class="glyphicon glyphicon-remove-circle"></span> Uninstall</a>
-        <a class="navbar-text" ng-click="resize()" ng-show="tile"><span class="glyphicon glyphicon-resize-small"></span> Resize</a>
+        <a class="navbar-text" ng-click="uninstall()" ng-show="target"><span class="glyphicon glyphicon-remove-circle"></span> Uninstall</a>
+        <a class="navbar-text" ng-click="resize()" ng-show="target"><span class="glyphicon glyphicon-resize-small"></span> Resize</a>
         <a class="navbar-text navbar-right"><span class="glyphicon glyphicon-cog"></span> Customize</a>
     </div>
 </div>

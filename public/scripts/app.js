@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('metroApp', [
-        'ngRoute', 'ngResource'
+        'ngRoute', 'ngResource', 'ngCookies'
     ])
     .config(function ($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true);
@@ -35,18 +35,22 @@ angular.module('metroApp', [
         'groups': [
             {
                 'id': 1,
+                'order': 2,
                 'title': "Featured"
             },
             {
                 'id': 2,
+                'order': 1,
                 'title': "New"
             },
             {
                 'id': 3,
+                'order': 3,
                 'title': "Other"
             },
             {
                 'id': 4,
+                'order': 4,
                 'title': "Test"
             }
         ],

@@ -99,10 +99,14 @@ main >.container{
     width: 2em;
     height: $tile-width*3;
     margin-top: 56px;
+    transition: background-color 1s;
   }
   &.reordering{
     .group-splitter{
       background-color: rgba(231, 221, 221, .3);
+      &.over{
+        background-color: lighten(rgba(231, 221, 221, .3), 50%);
+      }
     }
     .tile{
       padding: 0.5em;
