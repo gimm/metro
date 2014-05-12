@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 text-left">
+            <div class="page-header">
+                <h1><span class="glyphicon glyphicon-th-large"></span> Create your account</h1>
+                <div>Sign here if you have an account already!</div>
+            </div>
+
+            <form name="signForm" ng-submit="submit(signForm.$valid)" novalidate>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input ng-model="user.name" id="name" type="text" class="form-control" name="name" required/>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input ng-model="user.email" id="email" type="email" class="form-control" name="email" required/>
+
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input ng-model="user.password" id="password" type="password" class="form-control" name="password" required/>
+                </div>
+                <div class="form-group" ng-class="{'has-error':  signForm.$valid && user.repassword != user.password}">
+                    <label for="repassword">Reenter password</label>
+                    <input ng-model="user.repassword" id="repassword" type="password" class="form-control" name="repassword" required/>
+                    <p ng-show="signForm.$valid && user.repassword != user.password" class="help-block">Passwords don't match.</p>
+                </div>
+                <div class="form-group">
+                    <p ng-show="result" ng-class="{true: 'alert-success', false: 'alert-danger'}[result.success]" class="alert">{{result.message}}</p>
+                    <button ng-disabled="signForm.$invalid || user.repassword != user.password" type="submit" class="pull-right btn btn-primary">Create account</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

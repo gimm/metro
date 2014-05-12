@@ -4,7 +4,7 @@ angular.module("metroApp").factory("User", function ($resource) {
         login: {
             //TODO need a customized url here!
             method: 'POST',
-            url: 'login'
+            url: 'user/login'
         }
     });
 });

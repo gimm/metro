@@ -31,32 +31,30 @@ module.exports = function (app) {
         }
     });
 
-    app.all(prefix + '/:id', function (req, res) {
+    app.all(prefix + '/:id', function (req, res, next) {
         var query = {'_id': req.params.id};
         if(req.method === 'GET'){
             return Group.findOne(query, function (err, group) {
                 if (!err) {
                     return res.json(group);
                 } else {
-                    return console.log(err);
+                    next(err);
                 }
             });
         }else if(req.method === 'PUT'){
             return Group.findOneAndUpdate(query, req.query, function (err, group) {
                     if (!err) {
-                        console.log("updated");
+                        return res.json(group);
                     } else {
-                        console.log(err);
+                        next(err);
                     }
-                    return res.json(group);
             });
         }else if(req.method === 'DELETE'){
             return Group.findOneAndRemove(query, function (err, group) {
                     if (!err) {
-                        console.log("removed");
                         return res.json(group);
                     } else {
-                        console.log(err);
+                        next(err);
                     }
             });
         }

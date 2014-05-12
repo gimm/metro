@@ -3,7 +3,10 @@
 angular.module('metroApp', [
         'ngRoute', 'ngResource', 'ngCookies'
     ])
-    .config(function ($routeProvider, $locationProvider) {
+    .config(function ($routeProvider, $locationProvider, $httpProvider) {
+        //set xhr to true
+        $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+
         $locationProvider.html5Mode(true);
         $routeProvider
             .when('/', {
@@ -19,6 +22,9 @@ angular.module('metroApp', [
             .when('/login', {
                 templateUrl: 'views/login.html',
                 controller: 'LoginCtrl'
+            }).when('/sign', {
+                templateUrl: 'views/sign.html',
+                controller: 'SignCtrl'
             })
             .when('/about', {
                 templateUrl: 'views/about.html',
