@@ -19,13 +19,12 @@ var Preference = mongoose.model('Preference', preferenceSchema);
 
 var tileSchema = new mongoose.Schema({
     app: {type: mongoose.Schema.Types.ObjectId, ref: 'App'},
-    order: {type: Number, unique: true, default: 1},
+    order: {type: Number, default: 1},
     size: {type: Number, enum: [1, 2], default: 2}
 });
 
 var groupSchema = new mongoose.Schema({
     title: { type: String, required: true, trim: true},
-    order: { type: Number, unique: true, default: 1},
     tiles: [tileSchema]
 });
 var Group = mongoose.model('Group', groupSchema);
@@ -53,10 +52,7 @@ var data = {
         }
     ],
     group: {
-        title: 'System',
-        order: '1',
-        tiles: [
-        ]
+        title: 'System'
     },
     apps: [
         {
@@ -86,16 +82,6 @@ mongoose.connection.on('connected', function () {
 
     //init data
     mongoose.connection.db.collectionNames(function (err, collections) {
-
-//        ['App', 'Group', 'User'].forEach(function (modelName) {
-//            var model = mongoose.model(modelName);
-//            if (collectionNames.indexOf(model.collection.name) === -1) {
-//                model.collection.insert(data[modelName], function (err, collection) {
-//                    console.log(arguments);
-//                });
-//            }
-//        });
-
         mongoose.model('App').count({}, function(err, count){
             console.log('app count', count);
             if(count === 0){
@@ -105,20 +91,27 @@ mongoose.connection.on('connected', function () {
                         console.log('err initialize app collection.');
                     }else{
                         console.log(apps);
-                        data.group.tiles = apps.map(function (app, index) {
+                        var tiles = apps.map(function (app, index) {
                             return {
                                 app: app._id,
-                                order: index,
+                                order: index+1,
                                 size: 2
                             };
                         });
-                        mongoose.model('Group').create(data.group, function (err, group) {
+                        data.groups = data.users.map(function () {
+                            return {
+                                title: data.group.title,
+                                tiles: tiles
+                            };
+                        });
+
+                        mongoose.model('Group').collection.insert(data.groups, function (err, groups) {
                            if(err){
-                               console.log('err initialize group collection.');
+                               console.log('err initialize groups collection.');
                            } else{
-                               console.log(group);
-                               data.users.forEach(function (user) {
-                                   user.groups = [group._id];
+                               console.log(groups);
+                               data.users.forEach(function (user, index) {
+                                   user.groups = [groups[index]._id];
                                });
                                mongoose.model('User').collection.insert(data.users, function (err, users) {
                                    if(err){
