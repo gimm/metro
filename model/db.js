@@ -11,7 +11,8 @@ var userSchema = new mongoose.Schema({
 var User = mongoose.model('User', userSchema);
 
 var preferenceSchema = mongoose.Schema({
-    theme: {type: String, default: 'blue'}
+    theme: {type: String, default: 'blue'},
+    default: {type: Boolean, default: false}
 });
 var Preference = mongoose.model('Preference', preferenceSchema);
 
@@ -25,7 +26,8 @@ var tileSchema = new mongoose.Schema({
 
 var groupSchema = new mongoose.Schema({
     title: { type: String, required: true, trim: true},
-    tiles: [tileSchema]
+    tiles: [tileSchema],
+    order: {type: Number, default: 1}
 });
 var Group = mongoose.model('Group', groupSchema);
 
@@ -69,6 +71,14 @@ var data = {
             identity: 'about',
             created: new Date()
         }
+    ],
+    preferences: [
+        {
+            theme: 'green'
+        },{
+            theme: 'blue',
+            default: true
+        }
     ]
 };
 
@@ -83,14 +93,12 @@ mongoose.connection.on('connected', function () {
     //init data
     mongoose.connection.db.collectionNames(function (err, collections) {
         mongoose.model('App').count({}, function(err, count){
-            console.log('app count', count);
             if(count === 0){
                 var appCollection = mongoose.model('App').collection;
                 appCollection.insert(data.apps, function (err, apps) {
                     if(err){
                         console.log('err initialize app collection.');
                     }else{
-                        console.log(apps);
                         var tiles = apps.map(function (app, index) {
                             return {
                                 app: app._id,
@@ -104,27 +112,53 @@ mongoose.connection.on('connected', function () {
                                 tiles: tiles
                             };
                         });
+                        data.groups.push({
+                            title: data.group.title,
+                            tiles: tiles,
+                            order: 0
+                        });
 
                         mongoose.model('Group').collection.insert(data.groups, function (err, groups) {
                            if(err){
                                console.log('err initialize groups collection.');
                            } else{
-                               console.log(groups);
-                               data.users.forEach(function (user, index) {
-                                   user.groups = [groups[index]._id];
-                               });
-                               mongoose.model('User').collection.insert(data.users, function (err, users) {
-                                   if(err){
-                                       console.log('err initialize user collection.');
-                                   } else {
-                                       console.log(users);
-                                   }
-                               });
+                                mongoose.model('Preference').collection.insert(data.preferences, function (err, preferences) {
+                                    if(err){
+                                        console.log('err initialize preferences collection');
+                                    }else{
+                                        var defaultPreference = preferences.filter(function (preference) {
+                                            return preference.default;
+                                        }).pop();
+                                        groups.filter(function (group) {
+                                            return group.order;
+                                        }).forEach(function (group, index) {
+                                            var user = data.users[index];
+                                            user.groups = [group._id];
+                                            user.preference = defaultPreference._id;
+                                        });
+                                        mongoose.model('User').collection.insert(data.users, function (err, users) {
+                                            if(err){
+                                                console.log('err initialize user collection.');
+                                            }
+                                        });
+                                    }
+                                });
                            }
                         });
                     }
                 });
             }
+
+            //try out
+            var User = mongoose.model('User');
+            var Group = mongoose.model('Group');
+            User.findOne({name: 'admin'}).populate('groups').populate({path: 'groups.tiles.app', model: 'App'}).exec(function (err, user) {
+                console.log('user', user);
+                User.populate(user, {path: 'groups.tiles.app', model: 'App'}, function (err, u) {
+                    console.log('with apps', user);
+                });
+            });
+
         });
     });
 });

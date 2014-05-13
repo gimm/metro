@@ -1,7 +1,9 @@
 var prefix = '/user';
 
 var mongoose = require('mongoose');
-var User = require('mongoose').model('User');
+var User = mongoose.model('User'),
+    Group = mongoose.model('Group'),
+    Preference = mongoose.model('Preference');
 
 module.exports = function (app) {
     app.all(prefix, function (req, res, next) {
@@ -13,28 +15,44 @@ module.exports = function (app) {
                     return res.json(users);
                 }
             })
-        } else if (req.method === 'POST') { //sign
+        } else if (req.method === 'POST') { //sign - create user
             var user = new User({
                 name: req.param('name'),
                 email: req.param('email'),
                 password: req.param('password')
             });
-            user.save(function (err, user) {
-                if (err) {
+            Preference.findOne({default: true}, function(err, preference){
+                if(err){
                     next(err);
-                } else {
-                    req.session.user = user;
-                    return res.json(user);
+                }else{
+                    user.preference = preference._id;
+                    Group.findOne({order: 0}, function(err, group){
+                        if(err){
+                            next(err);
+                        }else{
+                            user.groups = [group._id];
+                            user.save(function (err, user) {
+                                if (err) {
+                                    next(err);
+                                } else {
+                                    req.session.user = user;
+                                    return res.json(user);
+                                }
+                            })
+                        }
+
+                    });
                 }
-            })
+
+            });
         }
     });
 
     app.all(prefix + '/:id', function (req, res, next) {
-        var slug = req.params.id;
-        if(slug === 'current'){//get current login user
+        var id = req.params.id;
+        if(id === 'current'){//get current login user
             res.json(req.session.user);
-        }else if(slug === 'login'){
+        }else if(id === 'login'){
             User.findOne({name: req.param('name')}, function (err, user) {
                 if(err){
                     next(err);
@@ -45,8 +63,22 @@ module.exports = function (app) {
                     res.json(user);
                 }
             });
+        }else if(id === 'tiles'){//populate user with groups and tiles info
+            var user = req.session.user;
+            if(true){
+                User.findById('5371cc7bdef38edb03dbaa06').populate('groups').exec(function (err, user) {
+                    User.populate(user,
+                        {path: 'groups.tiles.app', model: 'App', 'select': 'title identity'},
+                        function (err, u) {
+                        console.log('with apps', user);
+                        res.json(user.groups);
+                    });
+                });
+            }else{
+                next({name: 'AuthError', err: 'session unavailable!'});
+            }
         }else{
-            var query = {_id: slug};
+            var query = {_id: id};
             if(req.method === 'GET'){
                 return User.findOne(query, function (err, group) {
                     if (!err) {

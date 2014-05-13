@@ -2,7 +2,7 @@
 
 angular.module('metroApp')
     .controller('MainCtrl', function ($scope, grid, Group) {
-        grid.init();
+//        grid.init();
         $scope.size = grid.vars.size;
         $scope.groups = grid.groups;
         $scope.operation = 'none';
@@ -41,7 +41,6 @@ angular.module('metroApp')
             $scope.$apply(function () {
                 $scope.operation = operation;
             });
-            $scope.dragged = grid.tileById(appId);
         };
 
         $scope.resize = function () {

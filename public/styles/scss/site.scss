@@ -1,7 +1,6 @@
 @import "variables";
 @import "tile";
 
-
 // coords
 @for $i from 0 through 9 {
   .r#{$i} { 

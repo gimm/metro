@@ -72,6 +72,7 @@ angular.module('metroApp')
 
                 element.bind('click',function (e) {
                         console.log('tile clicked!');
+                        groupCtrl.name();
                         if(scope.operation === 'customize'){
                             this.classList.add('selected');
                             e.stopPropagation();

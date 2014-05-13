@@ -1,4 +1,4 @@
-angular.module("metroApp").service("grid", function ($q, $timeout, data) {
+angular.module("metroApp").service("grid", function ($q, User, data) {
     this.MAX_ROW = 3;
     this.tiles = [];
     this.groups = [];
@@ -10,12 +10,20 @@ angular.module("metroApp").service("grid", function ($q, $timeout, data) {
 
     this.load = function () {
         //fetch tiles and groups info
+
+//        this.tiles = data.tiles;
+//        this.groups = data.groups;
+        var that = this;
+
         var defer = $q.defer();
-        $timeout(function() {
-            defer.resolve({});
-        }, 1000);
-        this.tiles = data.tiles;
-        this.groups = data.groups;
+
+        User.tiles(function(groups){
+            console.log('groups', groups);
+            that.start.call(that, groups);
+            defer.resolve();
+        }, function () {
+            console.log('err get user tiles!');
+        });
         return defer.promise;
     };
 
@@ -61,7 +69,13 @@ angular.module("metroApp").service("grid", function ($q, $timeout, data) {
             this.vars.size += (group.size*10 +2);
         }, this);
     };
-    this.update = function () {
-
+    this.start = function (groups) {
+        var totalSize = 0;
+        groups.forEach(function (group) {
+            group.size = (Math.ceil(group.tiles[group.tiles.length-1].order / this.MAX_ROW)) * 2;//TODO fix this reference
+            totalSize += group.size;
+        });
+        this.groups = groups;
+        this.vars.size = totalSize;
     };
 });

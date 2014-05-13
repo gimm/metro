@@ -8,7 +8,7 @@
 </div>
 <div class="container" scroll>
     <div ng-class="{customize:'customizing panorama', reorder:'reordering panorama', 'none': 'panorama'}[operation]" style="{{'width: ' + size + 'em'}}">
-        <section group ng-repeat-start="group in groups | orderBy:'order'"></section>
+        <section group ng-repeat-start="group in groups"></section>
         <section group-splitter ng-repeat-end></section>
     </div>
 </div>
