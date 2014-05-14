@@ -1,24 +1,33 @@
-var path = require('path');
+var express = require('express'),
+    path = require('path'),
+    fs = require('fs');
 
-module.exports = function (app) {
-    app.get('/', function () {
-        res.send('hello');
-    });
+var router = express.Router();
 
-    require('./main')(app);
-    require('./hello')(app);
-    require('./user')(app);
-    require('./group')(app);
 
-    app.get('*.*', function (req, res) {
-        var index = path.resolve('./' + req.url);
-        res.sendfile(index);
-    });
+fs.readdirSync(__dirname).forEach(function (filename) {
+    console.log(__filename);
+    var match = /(.+).js$/.exec(filename);
+    if(match && filename!='index.js'){
+        var routeName = '/' + match.pop();
+        router.use(routeName, require('.' + routeName));
+    }
+});
 
-    app.get('*', function (req, res) {
-        var index = path.resolve('./public/index.html');
-        res.sendfile(index);
-    });
-};
+
+router.get('/index/:id([0-9a-fA-F]{24})', function (req, res, next) {
+    res.send('id', req.params.id);
+});
+router.get('*.*', function (req, res) {
+    var index = path.resolve('./' + req.url);
+    res.sendfile(index);
+});
+
+router.get('*', function (req, res) {
+    var index = path.resolve('./public/index.html');
+    res.sendfile(index);
+});
+
+module.exports = router;
 
 

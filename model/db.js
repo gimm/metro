@@ -1,5 +1,12 @@
 var mongoose = require('mongoose');
+var dbURI = 'mongodb://localhost/metro';
 
+module.exports = exports = {
+    connect: function () {
+        // Create the database connection
+        mongoose.connect(dbURI);
+    }
+};
 
 var userSchema = new mongoose.Schema({
     name: {type: String, unique: true, required: true},
@@ -82,11 +89,8 @@ var data = {
     ]
 };
 
-var dbURI = 'mongodb://localhost/metro';
-// Create the database connection
-mongoose.connect(dbURI);
 
-var conn = mongoose.connection;
+
 mongoose.connection.on('connected', function () {
     console.log('Mongoose connected to ' + dbURI);
 
