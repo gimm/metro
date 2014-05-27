@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('metroApp')
-    .controller('LoginCtrl', function ($scope, $cookies, $location, User) {
+    .controller('LoginCtrl', function ($scope, $cookies, $location, User, metro) {
         $scope.user = {};
         if($cookies.user){
             $scope.user.name = $cookies.user;
         }
         $scope.submit = function (valid) {
             if(valid) {
-                User.login({}, $scope.user).$promise.then(
+                User.populate({}, $scope.user).$promise.then(
                     function (user) {
                         $scope.result = {
                             success: true,
@@ -16,7 +16,7 @@ angular.module('metroApp')
                         };
                         //set cookie
                         $cookies.user = user.name;
-
+                        metro.user = user;
                         //redirect
                         $location.url('/');
                     },

@@ -1,0 +1,9 @@
+<div class="container">
+    <div ng-hide="error">
+        <h3>loading...</h3>
+    </div>
+    <div ng-show="error">
+        <h3>{{error.name}}</h3>
+        <p>{{error.message}}</p>
+    </div>
+</div>

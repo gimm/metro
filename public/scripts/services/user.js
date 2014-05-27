@@ -3,17 +3,15 @@ angular.module("metroApp").factory("User", function ($resource) {
     return $resource('user/:id', {}, {
         login: {
             method: 'POST',
-            url: 'user/login',
+            url: 'user/auth',
             responseType: 'json'
         },
-        tiles: {
-            method: 'GET',
-            url: 'user/tiles',
-            isArray: true,
+        populate: {
+            method: 'POST',
+            url: 'user/populate',
             responseType: 'json',
-            transformResponse: function (groups, headersGetter) {
-                console.log(groups);
-                groups.forEach(function (group) {
+            transformResponse: function (user, headersGetter) {
+                user.groups.forEach(function (group) {
                     group.tiles.forEach(function (tile) {
                         tile._id = tile.app._id;
                         tile.title = tile.app.title;
@@ -21,7 +19,7 @@ angular.module("metroApp").factory("User", function ($resource) {
                         delete tile.app;
                     });
                 });
-                return groups;
+                return user;
             }
         }
     });

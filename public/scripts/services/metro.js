@@ -1,29 +1,27 @@
-angular.module("metroApp").service("grid", function ($q, User, data) {
+angular.module("metroApp").service("metro", function ($q, User, data) {
     this.MAX_ROW = 3;
     this.tiles = [];
     this.groups = [];
     this.vars = {
         size: 0,    //panaroma size
         moving: false,  //dragging state
-        delay: 500  //dragging animation delay
+        delay: 300  //dragging animation delay
     };
 
     this.load = function () {
-        //fetch tiles and groups info
-
-//        this.tiles = data.tiles;
-//        this.groups = data.groups;
         var that = this;
-
         var defer = $q.defer();
-
-        User.tiles(function(groups){
-            console.log('groups', groups);
-            that.start.call(that, groups);
+        if(this.user){  //user already available
             defer.resolve();
-        }, function () {
-            console.log('err get user tiles!');
-        });
+        }else{  //get user info
+            User.populate(function(user){
+                console.log('user', user);
+                that.start.call(that, user.groups);
+                defer.resolve();
+            }, function () {
+                console.log('err get user tiles!');
+            });
+        }
         return defer.promise;
     };
 
@@ -73,8 +71,8 @@ angular.module("metroApp").service("grid", function ($q, User, data) {
         var totalSize = 0;
         groups.forEach(function (group) {
             group.size = (Math.ceil(group.tiles[group.tiles.length-1].order / this.MAX_ROW)) * 2;//TODO fix this reference
-            totalSize += group.size;
-        });
+            totalSize += (group.size*10 +2);
+        }, this);
         this.groups = groups;
         this.vars.size = totalSize;
     };

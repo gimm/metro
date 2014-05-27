@@ -5,35 +5,110 @@ var mongoose = require('mongoose'),
     Group = mongoose.model('Group'),
     Preference = mongoose.model('Preference');
 
+var LoginNeeded = {
+    name: 'AuthError',
+    err: 'login needed'
+};
+
 router.route('/')
-    .get(function (req, res, next) {
-        res.send('user list');
+    .get(function (req, res, next) {    //get current session user
+        res.json(req.session.user);
     })
-    .post(function () {
-        res.send('create user');
+    .post(function (req, res, next) {   //create user - user sign
+        var user = new User({
+            name: req.param('name'),
+            email: req.param('email'),
+            password: req.param('password')
+        });
+        Preference.default(function(err, preference){
+            if(err){
+                next(err);
+            }else{
+                user.preference = preference.id;
+                Group.default(function(err, group){
+                    if(err){
+                        next(err);
+                    }else{
+                        user.groups = [group.id];
+                        user.save(function (err, user) {
+                            if (err) {
+                                next(err);
+                            } else {
+                                req.session.user = user;
+                                return res.json(user);
+                            }
+                        })
+                    }
+                });
+            }
+        });
     });
 
 router.route('/:id([0-9a-fA-F]{24})')
-    .get(function (req, res, next) {
-        res.send('get user by id', req.params.id);
+    .get(function (req, res, next) {    //get user by id
+        User.findById(req.params.id, function (err, user) {
+            if(err){
+                next(err);
+            }else if(user){
+                res.json(user);
+            }else{
+                next({name: 'NotFoundError', err: 'user not found'});
+            }
+        });
     })
-    .put(function (req, res, next) {
-        res.send('update user by id');
+    .put(function (req, res, next) {    //update user by id
+        res.json('update user by id');
+//        User.findByIdAndUpdate(req.params.id, function (err, user) {
+//        });
     })
-    .delete(function (req, res, next) {
+    .delete(function (req, res, next) { //remove user by id
         res.send('delete user by id');
     });
 
-router.get('/self', function(req, res, next){
-    res.send('session user');
+router.get('/list', function(req, res, next){
+    User.find({}, function (err, users) {
+        if(err){
+            next(err);
+        }else{
+            res.json(users);
+        }
+    });
 });
 
 router.post('/auth', function (req, res, next) {
-
+    var name = req.param('name');
+    var password = req.param('password');
+    User.findOne({name: name, password: password}, function (err, user) {
+        if(err){
+            next(err);
+        }else if(user){
+            req.session.user = user;
+            res.json(user);
+        }else{
+            next({name: 'AuthError', err: 'login failed'});
+        }
+    });
 });
 
-router.get('/populate', function (req, res, next) {
-    res.send('session user, populated with tiles');
+router.post('/populate', function (req, res, next) {
+    var name = req.param('name');
+    var password = req.param('password');
+    if(!(name && password)){
+        if(req.session && req.session.user){
+            name = req.session.user.name;
+            password = req.session.user.password;
+        }else{
+            name = 'guest';
+            password = 'guest';
+        }
+    }
+    User.findOne({name: name, password: password}).populate('groups').populate('preference').exec(function (err, user) {
+        var options = {path: 'groups.tiles.app', model: 'App', 'select': 'title identity'};
+        User.populate(user, options, function (err, user) {
+            res.json(user);
+        });
+    });
+
 });
 
 

@@ -15,12 +15,18 @@ var userSchema = new mongoose.Schema({
     preference: {type: mongoose.Schema.Types.ObjectId, ref: 'Preference'},
     groups: [{type: mongoose.Schema.Types.ObjectId, ref: 'Group'}]
 });
+userSchema.statics.guest = function (fn) {
+    this.findOne({name: 'guest'}, fn);
+};
 var User = mongoose.model('User', userSchema);
 
 var preferenceSchema = mongoose.Schema({
     theme: {type: String, default: 'blue'},
     default: {type: Boolean, default: false}
 });
+preferenceSchema.statics.default = function (fn) {
+    this.find({default: true}, fn);
+}
 var Preference = mongoose.model('Preference', preferenceSchema);
 
 
@@ -36,6 +42,9 @@ var groupSchema = new mongoose.Schema({
     tiles: [tileSchema],
     order: {type: Number, default: 1}
 });
+groupSchema.statics.default = function (fn) {
+    this.find({order: 0}, fn);
+}
 var Group = mongoose.model('Group', groupSchema);
 
 var appSchema = mongoose.Schema({
@@ -113,7 +122,8 @@ mongoose.connection.on('connected', function () {
                         data.groups = data.users.map(function () {
                             return {
                                 title: data.group.title,
-                                tiles: tiles
+                                tiles: tiles,
+                                order: 1
                             };
                         });
                         data.groups.push({

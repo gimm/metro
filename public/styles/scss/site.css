@@ -222,7 +222,8 @@ html, body, main {
   height: 100%; }
 
 body {
-  background-color: #0F6D32; }
+  background-color: #0F6D32;
+  color: white; }
 
 .login-wrapper {
   color: #ffffff;

@@ -1,6 +1,107 @@
 'use strict';
+angular.module('metroDirective', [])
+//group directive
+    .directive("group", function (metro) {
+        return {
+            restrict: "A",
+            transclude: true,
+            replace: true,
 
-angular.module('metroApp')
+            templateUrl: "templates/group.html",
+            controller: function ($scope, $element) {
+                this.tileById = function(id){
+                    return $scope.group.tiles.filter(function (tile) {
+                        return tile.identity === id;
+                    }).pop();
+                };
+                this.tell = function () {
+                    console.log('group directive function:', $scope.group.title);
+                };
+            },
+            link: function(scope, element, attrs) {
+            }
+        }
+    })
+//group splitter directive
+    .directive("groupSplitter", function (metro) {
+        return {
+            restrict: "A",
+            transclude: true,
+            replace: true,
+
+            templateUrl: "templates/groupSplitter.html",
+            controller: function ($scope, $element) {
+                this.hello = function () {
+                    console.log('hello');
+                };
+            },
+            link: function(scope, element, attrs) {
+                element.attr("draggable", true);
+                element.bind('dragenter',function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.classList.add('over');
+                    }
+                ).bind('dragover',function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                ).bind('dragleave',function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.classList.remove('over');
+                    }
+                ).bind('drop', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('dropped!');
+                        scope.newGroup(scope.group.id);
+                    }
+                );
+            }
+        }
+    })
+//right click directive
+    .directive('rightClick', function ($parse) {
+        return function (scope, element, attrs) {
+            var fn = $parse(attrs.rightClick);
+            element.bind('contextmenu', function (event) {
+                scope.$apply(function () {
+                    event.preventDefault();
+                    fn(scope, {$event: event});
+                });
+            });
+        };
+    })
+//scroll directive
+    .directive('scroll', function ($document) {
+        return {
+            restrict: 'A',
+
+            link: function (scope, element, attrs) {
+                var delta = 100;
+                $document.on("wheel", function (e) {
+                    var direction = e.deltaY > 0 ? 1 : -1;
+                    scroll(element[0], delta*direction);
+                });
+                $document.on("keydown", function (e) {
+                    var direction = 0;
+                    if(e.keyCode==37 || e.keyCode==38){
+                        direction = -1;
+                    }else if(e.keyCode==39 || e.keyCode==40){
+                        direction = 1;
+                    }
+                    direction && scroll(element[0], delta*direction);
+                });
+
+            }
+        };
+        function scroll(element, delta) {
+            console.log("scroll", delta);
+            element.scrollLeft += delta;
+        }
+    })
+//tile directive
     .directive('tile', function ($location, $timeout, metro) {
         return {
             transclude: true,

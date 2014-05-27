@@ -1,4 +1,4 @@
-angular.module("metroApp").directive("group", function (grid) {
+angular.module("metroApp").directive("group", function (metro) {
     return {
         restrict: "A",
         transclude: true,
@@ -6,11 +6,16 @@ angular.module("metroApp").directive("group", function (grid) {
 
         templateUrl: "templates/group.html",
         controller: function ($scope, $element) {
-            $scope.tell = function () {
-                console.log('group directive function:', $scope.title);
+            this.tileById = function(id){
+                return $scope.group.tiles.filter(function (tile) {
+                     return tile.identity === id;
+                }).pop();
+            };
+            this.tell = function () {
+                console.log('group directive function:', $scope.group.title);
             };
         },
         link: function(scope, element, attrs) {
         }
     }
-})
+});

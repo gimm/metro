@@ -1,4 +1,4 @@
-angular.module("metroApp").directive("groupSplitter", function (grid) {
+angular.module("metroApp").directive("groupSplitter", function (metro) {
     return {
         restrict: "A",
         transclude: true,
@@ -6,7 +6,7 @@ angular.module("metroApp").directive("groupSplitter", function (grid) {
 
         templateUrl: "templates/groupSplitter.html",
         controller: function ($scope, $element) {
-            $scope.hello = function () {
+            this.hello = function () {
                 console.log('hello');
             };
         },

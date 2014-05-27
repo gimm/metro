@@ -1,8 +1,18 @@
 'use strict';
 
-angular.module('metroApp')
-    .controller('MainCtrl', function ($scope, metro, Group) {
-//        metro.init();
+angular.module('metroController', [])
+//main controller
+    .config(function ($routeProvider, $locationProvider, $httpProvider) {
+        //set xhr to true
+        $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+
+        $locationProvider.html5Mode(true);
+        $routeProvider
+            .when('/c', {
+                template: 'route from controllers module!'
+            })
+    })
+    .controller('MainCtrl', function ($scope, $q, metro, Group) {
         $scope.size = metro.vars.size;
         $scope.groups = metro.groups;
         $scope.operation = 'none';
@@ -142,4 +152,66 @@ angular.module('metroApp')
         $scope.$watchCollection('groups', function (newValue, oldValue) {
             console.log('groups changed');
         },true);
+    })
+//login controller
+    .controller('LoginCtrl', function ($scope, $cookies, $location, User, metro) {
+        $scope.user = {};
+        if($cookies.user){
+            $scope.user.name = $cookies.user;
+        }
+        $scope.submit = function (valid) {
+            if(valid) {
+                User.populate({}, $scope.user).$promise.then(
+                    function (user) {
+                        $scope.result = {
+                            success: true,
+                            message: 'Login success, rediret to home ...'
+                        };
+                        //set cookie
+                        $cookies.user = user.name;
+                        metro.user = user;
+                        //redirect
+                        $location.url('/');
+                    },
+                    function (err) {
+                        console.log('err', err);
+                        $scope.result = {
+                            success: false,
+                            message: err.data.error.err
+                        };
+                    }
+                );
+            }
+        };
+    })
+//sign controller
+    .controller('SignCtrl', function ($scope, User, $location) {
+        $scope.user = {
+            name: 'Gimm',
+            email: 'yucc2008@gmail.com'
+        };
+        $scope.submit = function (valid) {
+            console.log(valid);
+            if(valid){
+                var newUser = new User($scope.user);
+                newUser.$save().then(function (user) {
+                    console.log('user', user);
+                    $scope.result = {
+                        success: true,
+                        message: 'Accunt created, redirect to home ....'
+                    };
+                    $location.url('/');
+                }, function (err) {
+                    console.log('err', err);
+                    $scope.result = {
+                        success: false,
+                        message: err.data.error.err
+                    };
+                });
+            }
+        };
+    })
+
+    .controller('DynamicCtrl', function ($scope, $routeParams) {
+        $scope.templateUrl = 'xxx.html';
     });
