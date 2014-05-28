@@ -1,5 +1,22 @@
 'use strict';
-angular.module('metroService', [])
+angular.module('metro.service', [])
+    .provider('appRoute', function ($routeProvider, $sceProvider) {
+        this.$get = $routeProvider.$get;
+
+        this.app = function (app) {
+            this.pathPrefix = '/' + app;
+            this.templatePrefix = '/apps' + this.pathPrefix + '/';
+            return this;
+        };
+        this.when = function (path, route) {
+            path = this.pathPrefix + path;
+            if(angular.isString(route.templateUrl)){
+                route.templateUrl = this.templatePrefix + route.templateUrl;
+            }
+            $routeProvider.when(path, route);
+            return this;
+        };
+    })
 //user service
     .factory("User", function ($resource) {
         return $resource('user/:id', {}, {
@@ -44,7 +61,6 @@ angular.module('metroService', [])
                 defer.resolve();
             }else{  //get user info
                 User.populate(function(user){
-                    console.log('user', user);
                     that.start.call(that, user.groups);
                     defer.resolve();
                 }, function () {

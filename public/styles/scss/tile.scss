@@ -11,7 +11,7 @@
   @media (min-width: $screen-md-min) {
     position: absolute;
   }
-  .content {
+  .tile-content {
     transition: all .3s ease;
     cursor: pointer;
     height: 100%;
@@ -27,7 +27,7 @@
     background-color: green;
   }
   &.selected {
-    .content {
+    .tile-content {
       border: 0.3em solid darken(#2e8bcc, 20%);
     }
     &:before {
@@ -54,3 +54,17 @@
     }
   }
 }
+
+.tile{
+  &.s1{
+    .tile-content > .s2{
+      display: none;
+    }
+  }
+  &.s2{
+     .tile-content > .s1{
+       display: none;
+     }
+   }
+}
+

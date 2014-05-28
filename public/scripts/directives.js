@@ -1,5 +1,5 @@
 'use strict';
-angular.module('metroDirective', [])
+angular.module('metro.directive', [])
 //group directive
     .directive("group", function (metro) {
         return {
@@ -102,11 +102,11 @@ angular.module('metroDirective', [])
         }
     })
 //tile directive
-    .directive('tile', function ($location, $timeout, metro) {
+    .directive('tile', function ($location, $timeout, $compile, $http, $templateCache, metro) {
+
         return {
-            transclude: true,
             replace: true,
-            templateUrl: "templates/tile.html",
+            templateUrl: 'templates/tile.html',
             restrict: 'E',
             require: "^group",
             controller: function ($scope, $element) {
@@ -169,6 +169,7 @@ angular.module('metroDirective', [])
                 };
             },
             link: function (scope, element, attrs, groupCtrl) {
+                scope.templateUrl = 'apps/' + scope.tile.identity + '/templates/tile' + scope.tile.size + '.html';
                 element.attr("draggable", true);
                 element.bind('click',function (e) {
                         if(scope.operation === 'customize'){

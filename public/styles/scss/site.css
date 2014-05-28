@@ -9,7 +9,7 @@
   @media (min-width: 992px) {
     .tile {
       position: absolute; } }
-  .tile .content {
+  .tile .tile-content {
     transition: all .3s ease;
     cursor: pointer;
     height: 100%;
@@ -21,7 +21,7 @@
     opacity: 0.8; }
   .tile.over {
     background-color: green; }
-  .tile.selected .content {
+  .tile.selected .tile-content {
     border: 0.3em solid #1b5279; }
   .tile.selected:before {
     position: absolute;
@@ -43,6 +43,11 @@
     content: "";
     top: .5em;
     z-index: 101; }
+
+.tile.s1 .tile-content > .s2 {
+  display: none; }
+.tile.s2 .tile-content > .s1 {
+  display: none; }
 
 .r0 {
   top: 0em; }
@@ -282,7 +287,7 @@ main > .container {
       background-color: rgba(255, 255, 255, 0.3); }
   .panorama.reordering .tile {
     padding: 0.5em; }
-    .panorama.reordering .tile .content {
+    .panorama.reordering .tile .tile-content {
       border: 0.3em solid #1b5279; }
   .panorama.customizing .tile {
     padding: .5em; }

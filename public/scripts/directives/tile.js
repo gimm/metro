@@ -5,7 +5,9 @@ angular.module('metroApp')
         return {
             transclude: true,
             replace: true,
-            templateUrl: "templates/tile.html",
+            templateUrl: function(){
+                console.log('url', arguments);
+            },
             restrict: 'E',
             require: "^group",
             controller: function ($scope, $element) {

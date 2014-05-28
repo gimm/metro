@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('metroController', [])
+angular.module('metro.controller', [])
 //main controller
     .config(function ($routeProvider, $locationProvider, $httpProvider) {
         //set xhr to true
@@ -56,7 +56,7 @@ angular.module('metroController', [])
         $scope.resize = function () {
             if($scope.target.size === 1){
                 $scope.target.size = 2;
-                if(!metro.isSingle($scope.target)){
+                if(metro.tileHasSibling($scope.target)){
                     var params = {increase: true};
                     params.start = $scope.target.order;
                     $scope.changeOrders(metro.tileByGroup($scope.target.group), params);

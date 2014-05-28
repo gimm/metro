@@ -4,8 +4,8 @@ define([], function () {
 
 
     var app = angular.module('metroApp', [
-        'ngRoute', 'ngResource', 'ngCookies', 'metroController', 'metroService', 'metroDirective'
-    ])
+        'ngRoute', 'ngResource', 'ngCookies', 'metro.controller', 'metro.service', 'metro.directive'
+        ])
         .config(function ($routeProvider, $locationProvider, $httpProvider) {
             //set xhr to true
             $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -35,7 +35,7 @@ define([], function () {
                         load: function ($q, $injector, $rootScope) {
                             var app = window.location.pathname.split('/')[1],
                                 defer = $q.defer();
-                            require(['apps/' + app + '/' + app], function (module) {
+                            require(['../apps/' + app + '/' + app], function (module) {
                                 $injector.loadNewModules([module.name]);
                                 console.log('module loaded', module.name);
                                 defer.reject({

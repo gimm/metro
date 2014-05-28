@@ -2,7 +2,6 @@
     <h3>{{group.title}}</h3>
     <div class='group-content'>
         <tile data-app-id="{{tile.identity}}" class="tile {{tile.selected?'selected':''}} {{coords(tile)}}" ng-repeat="tile in group.tiles">
-            {{tile.title}} - {{tile.order}}
         </tile>
     </div>
 </section>
