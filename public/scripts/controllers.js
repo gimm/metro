@@ -38,7 +38,7 @@ angular.module('metro.controller', [])
                 c += 1;
             }
 
-            return ['s' + tile.size, 'r' + r, 'c' + c].join(' ');
+            return ['r' + r, 'c' + c].join(' ');
         };
 
         $scope.operate = function (operator, operation) {
@@ -54,15 +54,15 @@ angular.module('metro.controller', [])
         };
 
         $scope.resize = function () {
-            if($scope.target.size === 1){
-                $scope.target.size = 2;
+            if($scope.target.size === 'default'){
+                $scope.target.size = 'double';
                 if(metro.tileHasSibling($scope.target)){
                     var params = {increase: true};
                     params.start = $scope.target.order;
                     $scope.changeOrders(metro.tileByGroup($scope.target.group), params);
                 }
             }else{
-                $scope.target.size = 1;
+                $scope.target.size = 'default';
             }
             console.log('resize', $scope.target);
 //            $scope.$apply();
@@ -139,7 +139,9 @@ angular.module('metro.controller', [])
 
                 //resize group
                 if(end > 1000){//if it's MAX_NUMBER
-                    metro.groupById($scope.target.group).size = metro.groupSize($scope.target.group);
+                    console.log('$scope.target.group', $scope.target);
+                    //TODD move this to group ctrl
+//                    metro.groupById($scope.target.group).size = metro.groupSize($scope.target.group);
 
                     $scope.size = 0;
                     angular.forEach($scope.groups, function (group) {
@@ -150,7 +152,7 @@ angular.module('metro.controller', [])
         };
 
         $scope.$watchCollection('groups', function (newValue, oldValue) {
-            console.log('groups changed');
+            console.log('groups changed ........');
         },true);
     })
 //login controller

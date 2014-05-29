@@ -1,0 +1,36 @@
+@import '../../bower_components/metro-ui-css/less/variables';
+
+html, body, main {
+  height: 100%;
+}
+
+.tile-group, .tile{
+  transition: all .5s ease-in-out;
+}
+
+
+//COORDS
+//absolute position for tiles
+//should be reverse for small screens
+.tile-group{
+  .coords(10);
+  .generate-sizes(10);
+}
+
+.coords(@counter) when (@counter >= 0) {
+  .coords((@counter - 1));    // next iteration
+  .r@{counter} {
+    top: @tileGroupSize * @counter;
+  }
+  .c@{counter} {
+    left: @tileGroupSize * @counter;
+  }
+}
+
+
+.generate-sizes(@n, @i: 1) when (@i =< @n) {
+  &.s@{i} {
+    width: @i * @tileGroupSize;
+  }
+  .generate-sizes(@n, (@i + 1));
+}

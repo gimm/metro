@@ -129,6 +129,7 @@ angular.module('metroApp')
 
                 //resize group
                 if(end > 1000){//if it's MAX_NUMBER
+                    console.log('$scope.target.group', $scope.target.group);
                     metro.groupById($scope.target.group).size = metro.groupSize($scope.target.group);
 
                     $scope.size = 0;

@@ -6,7 +6,7 @@
   text-align: center;
   font-style: oblique;
   nt-weight: bold;
-  padding: 0.2em;
+  padding: $tile-padding;
   position: relative;
   @media (min-width: $screen-md-min) {
     position: absolute;
@@ -56,13 +56,25 @@
 }
 
 .tile{
+  .tile-content span.glyphicon{
+//    line-height: $tile-width - $tile-padding*2;
+  }
+  .tile-content > .lg, .tile-content > .sm{
+    line-height: $tile-width - $tile-padding*2;
+    span{
+      font-size: 2em;
+      &.glyphicon{
+        font-size: 4em;
+      }
+    }
+  }
   &.s1{
-    .tile-content > .s2{
+    .tile-content > .lg{
       display: none;
     }
   }
   &.s2{
-     .tile-content > .s1{
+     .tile-content > .sm{
        display: none;
      }
    }

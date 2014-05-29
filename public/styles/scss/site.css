@@ -44,9 +44,15 @@
     top: .5em;
     z-index: 101; }
 
-.tile.s1 .tile-content > .s2 {
+.tile .tile-content > .lg, .tile .tile-content > .sm {
+  line-height: 9.6em; }
+  .tile .tile-content > .lg span, .tile .tile-content > .sm span {
+    font-size: 2em; }
+    .tile .tile-content > .lg span.glyphicon, .tile .tile-content > .sm span.glyphicon {
+      font-size: 4em; }
+.tile.s1 .tile-content > .lg {
   display: none; }
-.tile.s2 .tile-content > .s1 {
+.tile.s2 .tile-content > .sm {
   display: none; }
 
 .r0 {

@@ -51,12 +51,13 @@ angular.module("metroApp").service("metro", function ($q, User, data) {
         }).pop();
     };
     this.groupSize = function (groupId) {
+        var sizes = 'one,two,three,four,five,six,seven,eight,nine'.split(',');
         var tiles = this.tileByGroup(groupId);
         tiles.sort(function (t1, t2) {
             return t1.order - t2.order;
         });
         var maxOrder = tiles[tiles.length-1].order;
-        return (Math.ceil(maxOrder / this.MAX_ROW)) * 2;
+        return sizes[(Math.ceil(maxOrder / this.MAX_ROW))];
     };
 
     //generate layout for group

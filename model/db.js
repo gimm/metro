@@ -34,7 +34,7 @@ var Preference = mongoose.model('Preference', preferenceSchema);
 var tileSchema = new mongoose.Schema({
     app: {type: mongoose.Schema.Types.ObjectId, ref: 'App'},
     order: {type: Number, default: 1},
-    size: {type: Number, enum: [1, 2], default: 2}
+    size: {type: String, enum: ['half', 'default', 'double'], default: 'default'}
 });
 
 var groupSchema = new mongoose.Schema({
@@ -116,7 +116,7 @@ mongoose.connection.on('connected', function () {
                             return {
                                 app: app._id,
                                 order: index+1,
-                                size: 2
+                                size: 'double'
                             };
                         });
                         data.groups = data.users.map(function () {

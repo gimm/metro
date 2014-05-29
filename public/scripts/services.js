@@ -76,7 +76,7 @@ angular.module('metro.service', [])
             }).pop();
         };
         this.tileHasSibling = function (tile) {
-            if(tile.size === 1){
+            if(tile.size === 'default'){
                 var siblingOrder = tile.order%1 ? (tile.order-0.5) : (tile.order+0.5);
                 return this.groupById(tile.group).tiles.filter(function (t) {
                     return t.order == siblingOrder;
@@ -101,7 +101,7 @@ angular.module('metro.service', [])
                 return t1.order - t2.order;
             });
             var maxOrder = tiles[tiles.length-1].order;
-            return (Math.ceil(maxOrder / this.MAX_ROW)) * 2;
+            return (Math.ceil(maxOrder / this.MAX_ROW));
         };
 
         //generate layout for group
@@ -115,7 +115,7 @@ angular.module('metro.service', [])
         this.start = function (groups) {
             var totalSize = 0;
             groups.forEach(function (group) {
-                group.size = (Math.ceil(group.tiles[group.tiles.length-1].order / this.MAX_ROW)) * 2;//TODO fix this reference
+                group.size = (Math.ceil(group.tiles[group.tiles.length-1].order / this.MAX_ROW));//TODO fix this reference
                 totalSize += (group.size*10 +2);
             }, this);
             this.groups = groups;
