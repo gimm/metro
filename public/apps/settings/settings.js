@@ -5,7 +5,7 @@ define([], function () {
             appRouteProvider
                 .app('settings')
                 .when('/', {
-                    template: '<h1>route from settings module!!</h1>'
+                    templateUrl: 'templates/home.html'
                 });
         })
         .value('test', 'value from hello module');

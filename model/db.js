@@ -79,12 +79,12 @@ var data = {
             created: new Date()
 
         }, {
-            title: 'Settings',
-            identity: 'settings',
+            title: 'Store',
+            identity: 'store',
             created: new Date()
         }, {
-            title: 'About',
-            identity: 'about',
+            title: 'Settings',
+            identity: 'settings',
             created: new Date()
         }
     ],

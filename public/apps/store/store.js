@@ -1,8 +1,8 @@
 'use strict';
 define([], function () {
-    var welcome = angular.module('welcome', ['metro.service']);
-    welcome.config(function (appRouteProvider) {
-        appRouteProvider.app(welcome.name);
+    var app = angular.module('store', ['metro.service']);
+    app.config(function (appRouteProvider) {
+        appRouteProvider.app(app.name);
         appRouteProvider
             .when('/:name?', {//TODO create a customized route provider
                 templateUrl: 'templates/home.html',
@@ -16,6 +16,6 @@ define([], function () {
         .controller('HomeCtrl', function ($scope, $routeParams) {
             $scope.name = $routeParams.name || 'Guest';
         });
-    return welcome;
+    return app;
 });
 

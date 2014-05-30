@@ -28,6 +28,10 @@ module.exports = function (grunt) {
                 files: ['<%= yo.webdir %>/scripts/{,*/}*.js'],
                 tasks: ['newer:jshint:all']
             },
+            less: {
+                files: ['<%= yo.webdir %>/styles/less/*.less'],
+                tasks: ['less:development', 'autoprefixer']
+            },
             compass: {
                 files: ['<%= yo.webdir %>/styles/scss/{,*/}*.{scss,sass}'],
                 tasks: ['compass:server', 'autoprefixer']
@@ -37,7 +41,7 @@ module.exports = function (grunt) {
                     open: true
                 },
                 files: [
-                    '<%= yo.webdir %>/{,*/}*.html',
+                    '<%= yo.webdir %>/**/*.html',
                     '<%= yo.webdir %>/styles/{,*/}*.css',
                     '<%= yo.webdir %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
@@ -117,9 +121,9 @@ module.exports = function (grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: '.tmp/styles/',
-                        src: '{,*/}*.css',
-                        dest: '<%= yo.webdir %>/styles/'
+                        cwd: '<%= yo.webdir %>/styles/css/',
+                        src: '*.css',
+                        dest: '<%= yo.webdir %>/styles/css/'
                     }
                 ]
             }
@@ -133,6 +137,17 @@ module.exports = function (grunt) {
             }
         },
 
+        less: {
+            development: {
+                options: {
+                },
+                files: {
+                    "<%= yo.webdir %>/styles/css/site.css": "<%= yo.webdir %>/styles/less/main.less"
+                }
+            },
+            production: {
+            }
+        },
 
         // Compiles Sass to CSS and generates necessary files if requested
         compass: {

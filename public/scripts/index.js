@@ -64,6 +64,10 @@ define([], function () {
             $rootScope.$on('metroError', function (event, error) {
                 $rootScope.error = error;
             });
+
+            $rootScope.clicked = function () {
+                console.log('clicked...');
+            };
         });
     return app;
 });

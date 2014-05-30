@@ -1,5 +1,5 @@
 <div data-group-id="{{group._id}}" class='tile-group s{{group.size}}'>
     <div class="tile-group-title">{{group.title}}</div>
-    <tile data-app-id="{{tile.identity}}" class="tile {{tile.size}} {{tile.selected?'selected':''}} {{coords(tile)}}" ng-repeat="tile in group.tiles|orderBy:'order'">
+    <tile data-app-id="{{tile.identity}}" class="tile {{tile.size}} {{tile.selected?'selected':''}} {{coords(tile)}}" ng-repeat="tile in group.tiles">
         </tile>
 </div>

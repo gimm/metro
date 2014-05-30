@@ -36,7 +36,8 @@
     "method-override": "*",
     "express-session": "*",
     "cookie-parser": "*",
-    "mongoose": "^3.8.9"
+    "mongoose": "^3.8.9",
+    "grunt-contrib-less": "~0.11.1"
   },
   "engines": {
     "node": ">=0.8.0"
