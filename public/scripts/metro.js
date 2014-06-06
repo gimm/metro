@@ -39,6 +39,7 @@ define([], function () {
         }, this);
         states.unshift({
             name: 'app.' + this.name,
+//            abstract: true,
             url: '/'+this.name,
             templateUrl: '/' + this.name + '/templates/index.html'
         });
