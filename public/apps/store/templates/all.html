@@ -1,0 +1,11 @@
+<div class="grid">
+    <div class="row">
+        <div class="span4" ng-repeat="app in apps | filter:search">
+            <div class="app-item">
+                <h4 class="subheader-secondary">{{app.title}}</h4>
+                <i>Author: {{app.author}}</i>
+                <div><button class="small success pull-right">Install</button></div>
+            </div>
+        </div>
+    </div>
+</div>

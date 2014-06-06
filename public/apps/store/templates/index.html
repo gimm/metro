@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="/store/style/store.css"/>
+<div class="container">
+    <div class="grid">
+        <div class="row" style="margin-top: 0; padding-top: 30px;border-bottom: 1px dashed lightseagreen;">
+            <div class="span2">
+                <h3 class="subheader"><i class="icon-cart-2"></i> Store</h3>
+            </div>
+            <div class="span6">
+                <nav class="horizontal-menu">
+                    <ul>
+                        <li><a ui-sref=".all">All apps</a></li>
+                        <li><a ui-sref=".my">My apps</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="span4">
+                <div class="input-control text size4 place-right">
+                    <input ng-model="search.title" type="text" placeholder="Search" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="container" ui-view>
+</div>

@@ -2,16 +2,6 @@
 
 angular.module('metro.controller', [])
 //main controller
-    .config(function ($routeProvider, $locationProvider, $httpProvider) {
-        //set xhr to true
-        $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-
-        $locationProvider.html5Mode(true);
-        $routeProvider
-            .when('/c', {
-                template: 'route from controllers module!'
-            })
-    })
     .controller('MainCtrl', function ($scope, $q, metro, Group) {
         $scope.size = metro.vars.size;
         $scope.groups = metro.groups;

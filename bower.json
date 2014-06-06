@@ -17,6 +17,7 @@
     "angular-resource": "~1.2.16",
     "angular-cookies": "~1.2.16",
     "requirejs": "~2.1.11",
-    "metro-ui-css": "~2.0.23"
+    "metro-ui-css": "~2.0.23",
+    "angular-ui-router": "~0.2.10"
   }
 }

@@ -1,6 +1,6 @@
 'use strict';
 angular.module('metro.service', [])
-    .provider('appRoute', function ($routeProvider, $sceProvider) {
+    .provider('appRoute', function ($routeProvider) {
         this.$get = $routeProvider.$get;
 
         this.app = function (app) {
@@ -17,6 +17,23 @@ angular.module('metro.service', [])
             return this;
         };
     })
+    .provider('appState', function ($stateProvider) {
+        this.$get = $stateProvider.$get;
+
+        this.app = function (app) {
+            this.pathPrefix = '/' + app;
+            this.templatePrefix = '/apps' + this.pathPrefix + '/';
+            return this;
+        };
+        this.state = function (path, route) {
+            path = this.pathPrefix + path;
+            if(angular.isString(route.templateUrl)){
+                route.templateUrl = this.templatePrefix + route.templateUrl;
+            }
+            $stateProvider.when(path, route);
+            return this;
+        };
+    })
 //user service
     .factory("User", function ($resource) {
         return $resource('user/:id', {}, {
@@ -27,7 +44,7 @@ angular.module('metro.service', [])
             },
             populate: {
                 method: 'POST',
-                url: 'user/populate',
+                url: '/user/populate',
                 responseType: 'json',
                 transformResponse: function (user, headersGetter) {
                     user.groups.forEach(function (group) {

@@ -7,7 +7,7 @@ angular.module('metro.directive', [])
             transclude: true,
             replace: true,
 
-            templateUrl: "templates/group.html",
+            templateUrl: "/templates/group.html",
             controller: function ($scope, $element) {
                 this.tileById = function(id){
                     return $scope.group.tiles.filter(function (tile) {
@@ -29,7 +29,7 @@ angular.module('metro.directive', [])
             transclude: true,
             replace: true,
 
-            templateUrl: "templates/groupSplitter.html",
+            templateUrl: "/templates/groupSplitter.html",
             controller: function ($scope, $element) {
                 this.hello = function () {
                     console.log('hello');

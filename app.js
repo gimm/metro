@@ -24,6 +24,7 @@ app.use(bodyParser());
 app.use(methodOverride());
 app.use(connectLivereload({port: 35729}));
 app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public/apps'));
 app.use(cookieParser());
 app.use(session({
     secret: 'keyboard cat',

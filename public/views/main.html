@@ -14,13 +14,13 @@
 
     <section group ng-repeat-start="group in groups"></section>
     <section group-splitter ng-repeat-end></section>
-    <div ng-class="{true:'navigation-bar dark fixed-bottom', false: 'hide'}[operation=='customize']">
-        <div class="container">
-            <nav class="navigation-bar-content">
-                <a class="element" ng-click="uninstall()" ng-show="target"><i class="icon-remove"></i> Uninstall</a>
-                <a class="element" ng-click="resize()" ng-show="target"><i class="icon-resize"></i> Resize</a>
-                <a class="element place-right"><i class="icon-grid"></i> Customize</a>
-            </nav>
-        </div>
+</div>
+<div ng-class="{true:'navigation-bar dark fixed-bottom', false: 'hide'}[operation=='customize']">
+    <div class="container">
+        <nav class="navigation-bar-content">
+            <a class="element" ng-click="uninstall()" ng-show="target"><i class="icon-remove"></i> Uninstall</a>
+            <a class="element" ng-click="resize()" ng-show="target"><i class="icon-resize"></i> Resize</a>
+            <a class="element place-right"><i class="icon-grid"></i> Customize</a>
+        </nav>
     </div>
 </div>

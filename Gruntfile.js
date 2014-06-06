@@ -142,7 +142,8 @@ module.exports = function (grunt) {
                 options: {
                 },
                 files: {
-                    "<%= yo.webdir %>/styles/css/site.css": "<%= yo.webdir %>/styles/less/main.less"
+                    "<%= yo.webdir %>/styles/css/site.css": "<%= yo.webdir %>/styles/less/main.less",
+                    "<%= yo.webdir %>/styles/css/store.css": "<%= yo.webdir %>/styles/less/store.less"
                 }
             },
             production: {

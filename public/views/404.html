@@ -1,9 +1,6 @@
 <div class="container">
-    <div ng-hide="error">
-        <h3>loading...</h3>
-    </div>
-    <div ng-show="error">
-        <h3>{{error.name}}</h3>
-        <p>{{error.message}}</p>
-    </div>
+    <h3 class="header">404</h3>
+    <h3 class="subheader">The page you requested could not be found!</h3>
+    <a ui-sref="home"><i class="icon-home"></i></a>
+    <p class="text-warning">{{message}}</p>
 </div>

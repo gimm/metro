@@ -1,21 +1,64 @@
 'use strict';
-define([], function () {
-    var app = angular.module('store', ['metro.service']);
-    app.config(function (appRouteProvider) {
-        appRouteProvider.app(app.name);
-        appRouteProvider
-            .when('/:name?', {//TODO create a customized route provider
-                templateUrl: 'templates/home.html',
-                controller: 'HomeCtrl'
+define(['metro'], function (metro) {
+    return metro.app('store')
+        .states([{
+            name: 'all',
+            controller: 'AllCtrl'
+        }, {
+            name: 'my',
+            controller: 'MyCtrl'
+        }])
+        .module(function (app) {
+            app.value('apps', [
+                {
+                    id: 1,
+                    title: 'weather1',
+                    author: 'yuccwh@cn.ibm.com'
+                },{
+                    id: 1,
+                    title: 'weather2',
+                    author: 'yuccwh@cn.ibm.com'
+                },{
+                    id: 1,
+                    title: 'weather3',
+                    author: 'yuccwh@cn.ibm.com'
+                },{
+                    id: 1,
+                    title: 'weather4',
+                    author: 'yuccwh@cn.ibm.com'
+                },{
+                    id: 1,
+                    title: 'weather5',
+                    author: 'yuccwh@cn.ibm.com'
+                },{
+                    id: 1,
+                    title: 'weather6',
+                    author: 'yuccwh@cn.ibm.com'
+                },{
+                    id: 1,
+                    title: 'weather7',
+                    author: 'yuccwh@cn.ibm.com'
+                },{
+                    id: 1,
+                    title: 'weather8',
+                    author: 'yuccwh@cn.ibm.com'
+                },{
+                    id: 1,
+                    title: 'weather9',
+                    author: 'yuccwh@cn.ibm.com'
+                },{
+                    id: 1,
+                    title: 'weather0',
+                    author: 'yuccwh@cn.ibm.com'
+                }
+            ])
+            .controller('AllCtrl', function ($scope, apps) {
+                $scope.apps = apps;
             })
-            .when('/about', {
-                template: 'about welcome page!'
-            })
-    })
-        .value('test', 'value from hello module')
-        .controller('HomeCtrl', function ($scope, $routeParams) {
-            $scope.name = $routeParams.name || 'Guest';
-        });
-    return app;
+            .controller('MyCtrl', function ($scope, apps) {
+                $scope.apps = apps;
+            });
+        })
+        .init();
 });
 

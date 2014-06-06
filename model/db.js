@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+//var dbURI = 'mongodb://e8b28890-fb9d-4e2c-bbae-a5928b92b083:9b55e223-78f7-4dd4-a0f5-17b89e0b048e@75.126.37.69:10024/db';
 var dbURI = 'mongodb://localhost/metro';
 
 module.exports = exports = {
@@ -85,6 +86,10 @@ var data = {
         }, {
             title: 'Settings',
             identity: 'settings',
+            created: new Date()
+        }, {
+            title: 'Dev',
+            identity: 'dev',
             created: new Date()
         }
     ],
